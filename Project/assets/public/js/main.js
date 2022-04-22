@@ -40,7 +40,7 @@ function toggle(){
     if(menu.classList.contains("display")){
         menu.classList.add("exitdisplay");
         menu.classList.remove("display");
-        document.body.style.overflow = "scroll";
+        document.body.style.overflowY = "scroll";
         
         setTimeout(function(){ menu.classList.remove("exitdisplay"); }, 500);
         
@@ -49,7 +49,7 @@ function toggle(){
     else{
         menu.classList.remove("exitdisplay");
         menu.classList.add("display");
-        document.body.style.overflow = "hidden";
+        document.body.style.overflowY = "hidden";
     }
 
 }

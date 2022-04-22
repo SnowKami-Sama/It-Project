@@ -133,16 +133,14 @@ nav ul li a{
 	}
 }
 #Burger{
-    width: 60px;
-    height: 60px;
-	margin-left: auto;
+    height: 70px;
 	cursor: pointer;
+	margin-right: 30px;
 }
 #Burger .line{
 
     width: 50px;
-    margin: 20px 0 20px 0;
-	border-radius: 5px;
+    margin: 30px 0 20px 0;
 
 }
 #Burger .line:nth-of-type(1){
