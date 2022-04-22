@@ -51,7 +51,10 @@ li{
 	
 	src: url('/font/ringbearer.woff') format('woff');
 }
-
+#container{
+	min-height: 100vh;
+	width: 100%;
+}
 /* HEADER */
 
 #Menuholder{
@@ -78,8 +81,6 @@ nav ul li a{
 }
 #Menu{
 	width: calc(60% - 20px);
-	
-	
 }
 #Logo{
     max-width: 40%;
@@ -139,10 +140,9 @@ nav ul li a{
 }
 #Burger .line{
 
-    border-bottom: 3px solid var(--gold);
     width: 50px;
     margin: 20px 0 20px 0;
-	border-radius: 20px;
+	border-radius: 5px;
 
 }
 #Burger .line:nth-of-type(1){
@@ -155,6 +155,52 @@ nav ul li a{
     justify-content: space-between;
     flex-wrap: wrap;
 	background-color: var(--red);
+}
+.menu {
+    cursor: pointer;
+    margin: 0 auto;
+    position: relative;
+    width: 40px;
+    height: 40px;
+}
+
+.menu-global {
+    backface-visibility: hidden;
+    position: absolute;
+    right: 0;;
+    border-top: 7px solid var(--gold);
+    width: 100%;
+    transition: 0.50s;
+}
+
+.menu-top {
+    top: 0;
+}
+
+.menu-middle {
+    top: 18px;
+}
+
+.menu-bottom {
+    top: 36px;
+}
+
+.menu-top-click {
+    backface-visibility: hidden;
+    top: 15px;
+    transform: rotate(50deg);
+    transition: 0.5s 0.5s;
+}
+
+.menu-middle-click {
+    opacity: 0;
+}
+
+.menu-bottom-click {
+    backface-visibility: hidden;
+    top: 15px;
+    transform: rotate(-410deg);
+    transition: 0.5s 0.5s;
 }
 
 /* FOOTER */
@@ -170,29 +216,25 @@ footer{
 /* MAIN */
 
 #Main_content{
-	width: 70%;
+	width: 100%;
 	background-image: url("/img/background.jpg");
 	background-size: contain;
 	background-position: center;
 	background-repeat: no-repeat;
-	min-height: 300px;
+	min-height: 350px;
 }
 #Scoreboard{
-	width: calc(30% - 20px);
+	width: 100%;
 	background-image: url("/img/shield.png");
-	background-size: contain;
 	background-position: center;
 	background-repeat: no-repeat;
-	margin: 10px;
-	position: relative;
+	display: flex;
+	justify-content: center;
+	background-size: contain;
 }
 #Scores{
-	position: absolute;
 	width: 100%;
 	height: 100%;
-	top: 50%;  
-    left: 50%;
-    transform: translate(-50%, -50%); 
 	border-radius: 15px;
 	max-width: 190px;
 	font-size: 3vh;
@@ -201,11 +243,14 @@ footer{
 	align-items: center;
 	justify-content: center;
 	background-color: rgba(7, 7, 7, 0.479);
+	display: flex;
+	height: 350px;
+	justify-content: center;
+	flex-wrap: wrap;
 }
 #Homeflex{
-	display: flex;
-	flex-wrap: wrap;
-	height: calc(100vh - 160px);
+	
+	min-height: calc(100vh - 160px);
 	background-color: rgb(7.1, 7.1, 7.1);
 }
 #ScoreHeading{
@@ -221,22 +266,25 @@ footer{
 	font-size: 8px;
 	color: white;
 }
+#Shield{
+	height: 100%;
+	width: 100%;
+}
 .scoreList{
 	font-size: 60%;
 	display: flex;
 	width: 100%;
-	height: 80%;
+	height: 70%;
 	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
-	margin-top: -30px;
 }
 .score{
 	color: var(--gold);
 	padding: 2px;
 	border-radius: 20px;
-	width: 40%;
-	font-size: 7.5px;
+	width: 25%;
+	font-size: 1.5vh;
 	text-align: center;
 }
 @media only screen and (min-width : 60em){
@@ -283,14 +331,25 @@ footer{
 	#Menu section .display li{
 		margin-top: 0;
 	}
+	#Main_content{
+		width: 70%;
+	}
 	#Burger{
 		display: none;
 	}
 	#Scores{
 		height: 100%;
 	}
-	.score{
+	#Scoreboard{
 		width: 30%;
-		font-size: 10px;
+		margin-top: 30px;
+	}
+	#Homeflex{
+		display: flex;
+		flex-wrap: wrap;
+		width: 100%;
 	}
 }
+
+  
+  
