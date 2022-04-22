@@ -5,7 +5,7 @@ const ejs= require('ejs');
 
 app.use(express.static(__dirname + '/assets/public/'));
  
-app.set('view engine', 'ejs'); // EJS als view engine
+app.set('view engine','ejs'); // EJS als view engine
 app.set('port', 3000);
 
 app.get('/index',(req:any,res:any)=>{

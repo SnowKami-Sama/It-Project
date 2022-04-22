@@ -1,28 +1,29 @@
 /*ROOT*/
 
 :root {
-  --m-small: 0.3rem;
-  --m-medium: 0.7rem;
-  --m-big: 1.2rem;
-  --p-small: 0.3rem;
-  --p-medium: 0.7rem;
-  --p-big: 1.2rem;
-  --brown: #4b3804;
-  --white: #fff;
-  --red: #470003;
-  --gray: #2d2f2e;
-  --black: #000;
+	--m-small: .3rem;
+	--m-medium: .7rem;
+	--m-big: 1.2rem;
+	--p-small: .3rem;
+	--p-medium: .7rem;
+	--p-big: 1.2rem;
+	--brown: #4b3804;
+	--white: #fff;
+	--red: #470003;
+	--gray: #2d2f2e;
+	--black: #000;
   --gold: #fffc04;
   --darkpink: #ea215a;
   --bg: rgb(7, 7, 7);
   --orange: #dba800;
 }
 
+
 /*RESET*/
 
 *::after,
 *::before {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 body,
@@ -38,294 +39,370 @@ h1,
 h2,
 ul,
 li {
-  margin: 0;
-  padding: 0;
+	margin: 0;
+	padding: 0;
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 16px;
-  line-height: 1, 5;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	line-height: 1, 5;
 }
 
 body,
 html {
-  width: 100%;
-  height: 100vh;
+	width: 100%;
+	height: 100vh;
 }
 
 img {
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-  max-height: auto;
+	width: 100%;
+	max-width: 100%;
+	height: auto;
+	max-height: auto;
 }
 
 a {
-  text-decoration: none;
+	text-decoration: none;
 }
 
 li {
-  list-style: none;
+	list-style: none;
 }
+
 
 /* FONT */
 
 @font-face {
-  font-family: "Ringbearer";
-  src: url("/font/ringbearer.woff") format("woff");
+	font-family: 'Ringbearer';
+	src: url('/font/ringbearer.woff') format('woff');
 }
+
+#container {
+	min-height: 100vh;
+	width: 100%;
+}
+
 
 /* HEADER */
 
 #Menuholder {
-  height: 100px;
+	height: 100px;
 }
 
 nav ul {
-  font-family: "Ringbearer";
-  font-size: 20px;
-  display: none;
-  text-align: center;
+	font-family: 'Ringbearer';
+	font-size: 20px;
+	display: none;
+	text-align: center;
 }
 
 nav ul li {
-  width: 300px;
-  margin: 0 auto;
-  margin-top: calc(18vh - 40px);
+	width: 300px;
+	margin: 0 auto;
+	margin-top: calc(18vh - 40px);
 }
 
 nav ul li a {
-  color: var(--gold);
+	color: var(--gold);
 }
 
 .active {
-  text-decoration: none;
-  border-bottom: var(--darkpink) 0.125em solid;
+	text-decoration: none;
+	border-bottom: var(--darkpink) 0.125em solid;
 }
 
 #Menu {
-  width: calc(60% - 20px);
+	width: calc(60% - 20px);
 }
 
 #Logo {
-  max-width: 40%;
-  padding: 10px;
-  background-color: var(--brown);
+	max-width: 40%;
+	padding: 10px;
+	background-color: var(--brown);
 }
 
 #Logo img {
-  background-color: var(--brown);
-  max-height: 76px;
+	background-color: var(--brown);
+	max-height: 76px;
 }
 
 .display {
-  position: fixed;
-  z-index: 1;
-  top: 100px;
-  right: 0;
-  display: block;
-  overflow: auto;
-  width: 100%;
-  min-height: calc(100vh - 100px);
-  animation: topDown 0.3s linear;
-  opacity: 1;
-  background-color: var(--gray);
+	position: fixed;
+	z-index: 1;
+	top: 100px;
+	right: 0;
+	display: block;
+	overflow: auto;
+	width: 100%;
+	min-height: calc(100vh - 100px);
+	animation: topDown .3s linear;
+	opacity: 1;
+	background-color: var(--gray);
 }
 
 @keyframes topDown {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
 
 .exitdisplay {
-  position: fixed;
-  top: 100px;
-  right: 0;
-  display: inline;
-  width: 100%;
-  min-height: 100%;
-  animation: bottomUp 0.3s linear;
-  opacity: 0;
+	position: fixed;
+	top: 100px;
+	right: 0;
+	display: inline;
+	width: 100%;
+	min-height: 100%;
+	animation: bottomUp .3s linear;
+	opacity: 0;
 }
 
 @keyframes bottomUp {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
 }
 
 #Burger {
-  width: 60px;
-  height: 60px;
-  margin-left: auto;
-  cursor: pointer;
+	height: 70px;
+	cursor: pointer;
+	margin-right: 30px;
 }
 
 #Burger .line {
-  border-bottom: 3px solid var(--gold);
-  width: 50px;
-  margin: 20px 0 20px 0;
-  border-radius: 20px;
+	width: 50px;
+	margin: 30px 0 20px 0;
 }
 
 #Burger .line:nth-of-type(1) {
-  padding-top: 5px;
+	padding-top: 5px;
 }
 
 #Menuholder {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  background-color: var(--red);
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	background-color: var(--red);
 }
+
+.menu {
+	cursor: pointer;
+	margin: 0 auto;
+	position: relative;
+	width: 40px;
+	height: 40px;
+}
+
+.menu-global {
+	backface-visibility: hidden;
+	position: absolute;
+	right: 0;
+	;
+	border-top: 7px solid var(--gold);
+	width: 100%;
+	transition: 0.50s;
+}
+
+.menu-top {
+	top: 0;
+}
+
+.menu-middle {
+	top: 18px;
+}
+
+.menu-bottom {
+	top: 36px;
+}
+
+.menu-top-click {
+	backface-visibility: hidden;
+	top: 15px;
+	transform: rotate(50deg);
+	transition: 0.5s 0.5s;
+}
+
+.menu-middle-click {
+	opacity: 0;
+}
+
+.menu-bottom-click {
+	backface-visibility: hidden;
+	top: 15px;
+	transform: rotate(-410deg);
+	transition: 0.5s 0.5s;
+}
+
 
 /* FOOTER */
 
 footer {
-  background-color: var(--black);
-  color: var(--white);
-  padding: 10px;
-  height: 40px;
-  line-height: 40px;
+	background-color: var(--black);
+	color: var(--white);
+	padding: 10px;
+	height: 40px;
+	line-height: 40px;
 }
+
 
 /* MAIN */
 
 #Main_content {
-  width: 70%;
-  background-image: url("/img/background.jpg");
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-  min-height: 300px;
+	width: 100%;
+	background-image: url("/img/background.jpg");
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	min-height: 350px;
 }
 
 #Scoreboard {
-  width: calc(30% - 20px);
-  background-image: url("/img/shield.png");
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-  margin: 10px;
-  position: relative;
+	width: 100%;
+	display: flex;
+	justify-content: center;	
 }
 
 #Scores {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 15px;
-  max-width: 190px;
-  font-size: 3vh;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(7, 7, 7, 0.5);
+	width: 100%;
+	height: 100%;
+	border-radius: 15px;
+	max-width: 240px;
+	font-size: 3vh;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	/*background-color: rgba(7, 7, 7, 0.479);*/
+  	text-shadow: 0px 0px 5px white;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+  	position: relative;
 }
 
 #Homeflex {
-  display: flex;
-  flex-wrap: wrap;
-  height: calc(100vh - 160px);
-  background-color: var(--bg);
+	min-height: calc(100vh - 160px);
+	background-color: var(--bg);
 }
 
 #ScoreHeading {
-  width: 100%;
-  text-align: center;
+	width: 100%;
+	text-align: center;
+	z-index: 1;
+  height: 0;
 }
 
 #ScoreHeading h3 {
-  font-size: 14px;
-  color: var(--orange);
+	font-size: 14px;
+	color: var(--orange);
 }
 
 #ScoreHeading p {
-  font-size: 8px;
-  color: var(--white);
+	font-size: 8px;
+	color: var(--white);
+}
+
+#Shield {
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-image: url("/img/shield.png");
+	background-position: center;
+	background-repeat: no-repeat;
+	display: flex;
+	justify-content: center;
+	background-size: contain;
+	filter: brightness(.6);
+	z-index: 0;
 }
 
 .scoreList {
-  font-size: 60%;
-  display: flex;
-  width: 100%;
-  height: 80%;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  margin-top: -30px;
+	font-size: 60%;
+	display: flex;
+	width: 100%;
+	height: 70%;
+	flex-wrap: wrap;
+	justify-content: center;
+	z-index: 1;
 }
 
 .score {
-  color: var(--gold);
-  padding: 2px;
-  border-radius: 20px;
-  width: 40%;
-  font-size: 7.5px;
-  text-align: center;
+	color: var(--gold);
+	padding: 2px;
+	border-radius: 20px;
+	width: 25%;
+	font-size: 1.5vh;
+	text-align: center;
 }
 
 @media only screen and (min-width: 60em) {
-  #Menu {
-    width: 70%;
-    height: 100px;
-  }
-  #Menu section ul {
-    position: static;
-    display: flex;
-    height: 100px;
-    justify-content: space-around;
-    align-items: center;
-    font-size: 16px;
-    animation: none;
-    align-items: center;
-  }
-  #Menu section .display {
-    position: static;
-    display: flex;
-    padding: 0;
-    animation: none;
-    justify-content: space-around;
-    height: 100px;
-    align-items: center;
-    min-height: 100px;
-    background-color: var(--red);
-  }
-  #Menu section .exitdisplay {
-    position: static;
-    display: flex;
-    padding: 0;
-    animation: none;
-    justify-content: space-around;
-    height: 100px;
-    align-items: center;
-  }
-  #Menu section ul li {
-    margin-top: 0;
-  }
-  #Menu section .display li {
-    margin-top: 0;
-  }
-  #Burger {
-    display: none;
-  }
-  #Scores {
-    height: 100%;
-  }
-  .score {
-    width: 30%;
-    font-size: 10px;
-  }
+	#Menu {
+		width: 70%;
+		height: 100px;
+	}
+	#Menu section ul {
+		position: static;
+		display: flex;
+		height: 100px;
+		justify-content: space-around;
+		align-items: center;
+		font-size: 16px;
+		animation: none;
+		align-items: center;
+	}
+	#Menu section .display {
+		position: static;
+		display: flex;
+		padding: 0;
+		animation: none;
+		justify-content: space-around;
+		height: 100px;
+		align-items: center;
+		min-height: 100px;
+		background-color: var(--red);
+	}
+	#Menu section .exitdisplay {
+		position: static;
+		display: flex;
+		padding: 0;
+		animation: none;
+		justify-content: space-around;
+		height: 100px;
+		align-items: center;
+	}
+	#Menu section ul li {
+		margin-top: 0;
+	}
+	#Menu section .display li {
+		margin-top: 0;
+	}
+	#Main_content {
+		width: 70%;
+	}
+	#Burger {
+		display: none;
+	}
+	#Scores {
+		height: 100%;
+	}
+	#Scoreboard {
+		width: 30%;
+		margin-top: 30px;
+	}
+	#Homeflex {
+		display: flex;
+		flex-wrap: wrap;
+		width: 100%;
+	}
 }

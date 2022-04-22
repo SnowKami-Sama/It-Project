@@ -2,18 +2,54 @@ let burger = document.querySelector("#Burger").addEventListener("click",toggle);
 
 let menu = document.querySelector("#Menu ul");
 
+var Menu = {
+  
+  el: {
+    ham: document.querySelector('.menu'),
+    menuTop: document.querySelector('.menu-top'),
+    menuMiddle: document.querySelector('.menu-middle'),
+    menuBottom: document.querySelector('.menu-bottom')
+  },
+  
+  init: function() {
+    Menu.bindUIactions();
+  },
+  
+  bindUIactions: function() {
+    Menu.el.ham
+        .addEventListener(
+          'click',
+        function(event) {
+        Menu.activateMenu(event);
+        event.preventDefault();
+      }
+    );
+  },
+  
+  activateMenu: function() {
+    Menu.el.menuTop.classList.toggle('menu-top-click');
+    Menu.el.menuMiddle.classList.toggle('menu-middle-click');
+    Menu.el.menuBottom.classList.toggle('menu-bottom-click'); 
+  }
+};
+
+Menu.init();
 // MENU TOGGLE
 
 function toggle(){
     if(menu.classList.contains("display")){
         menu.classList.add("exitdisplay");
         menu.classList.remove("display");
+        document.body.style.overflowY = "scroll";
+        
         setTimeout(function(){ menu.classList.remove("exitdisplay"); }, 500);
+        
         
     }
     else{
         menu.classList.remove("exitdisplay");
         menu.classList.add("display");
+        document.body.style.overflowY = "hidden";
     }
 
 }
