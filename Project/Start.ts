@@ -14,5 +14,12 @@ app.get('/index',(req:any,res:any)=>{
     
 });
 
-app.listen(app.get('port'), ()=>console.log( '[server] http://localhost:' + app.get('port') + '/index'));
+app.get('/landing',(req:any,res:any)=>{
+    
+    res.render('landing',{});
+    
+});
+
+
+app.listen(app.get('port'), ()=>console.log( '[server] http://localhost:' + app.get('port') + '/landing'));
 export{}
