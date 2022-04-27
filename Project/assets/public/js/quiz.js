@@ -30,9 +30,9 @@ const quiz = async () => {
         tokenNumber++
     };
     const quotes = await rawQuotes.json();
-    let quoteA = quotes.docs[Math.floor(Math.random() * quotes.docs.length)];
-    let quoteB = quotes.docs[Math.floor(Math.random() * quotes.docs.length)];
-    let quoteC = quotes.docs[Math.floor(Math.random() * quotes.docs.length)];
+    let quoteA = "";
+    let quoteB = "";
+    let quoteC = "";
     do {
         quoteA = quotes.docs[Math.floor(Math.random() * quotes.docs.length)];
         quoteB = quotes.docs[Math.floor(Math.random() * quotes.docs.length)];
@@ -64,14 +64,17 @@ const quiz = async () => {
         document.getElementById(`button${i+1}`).innerHTML = shuffledArray[i];
     }
     console.log(answer);
-    document.querySelector(".button").addEventListener("click",async function(){
-        if(this.innerHTML == answer){
-            score+=10;
-            document.getElementById("extra").innerHTML = score;
-            await quiz();
-        }
-    })
-
+    let buttons = document.querySelectorAll(".button");
+    buttons.forEach(button =>{
+        button.addEventListener("click",async function(){
+            if(button.innerHTML === answer){
+                score+=10;
+                document.getElementById("extra").innerHTML = score;
+                await quiz();
+            }
+        })
+    
+    });
     //checks the calls left on ur token
     /*const callsLeft = rawQuotes.headers.get("X-RateLimit-Remaining");
     if(callsLeft < 5 && tokenNumber < headersList.length){
