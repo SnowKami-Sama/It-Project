@@ -2,6 +2,8 @@ let burger = document.querySelector("#Burger").addEventListener("click",toggle);
 
 let menu = document.querySelector("#Menu ul");
 
+
+
 var Menu = {
   
   el: {
@@ -37,6 +39,7 @@ Menu.init();
 // MENU TOGGLE
 
 function toggle(){
+  
     if(menu.classList.contains("display")){
         menu.classList.add("exitdisplay");
         menu.classList.remove("display");
@@ -49,6 +52,8 @@ function toggle(){
     else{
         menu.classList.remove("exitdisplay");
         menu.classList.add("display");
+        menu.style.top = `${100 - window.scrollY}px`;
+        menu.style.height = `${menu.clientHeight + window.scrollY}px`;
         document.body.style.overflowY = "hidden";
     }
 
