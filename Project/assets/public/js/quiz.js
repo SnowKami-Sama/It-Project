@@ -19,16 +19,23 @@ let headersList = [{
     "Authorization": "Bearer XaGaBR8uAccCHCQrr-7Q"
 }]
 
-console.log(headersList.length);
-
 let tokenNumber  = 0;
 let score  = 0;
+let run = true;
+
+let start = document.getElementById('startQuiz');
 
 const quiz = async () => {
-    const rawQuotes = await fetch('https://the-one-api.dev/v2/quote', { headers: headersList[tokenNumber] })
-    if (rawQuotes.status == 429) {
-        tokenNumber++
-    };
+    document.getElementById('quiz').style.display = 'block';
+    const rawQuotes = await fetch('https://the-one-api.dev/v2/quote', { headers: headersList[tokenNumber] });
+    if (rawQuotes.status == 429 && tokenNumber != 5) {
+        tokenNumber++;
+        rawQuotes = await fetch('https://the-one-api.dev/v2/quote', { headers: headersList[tokenNumber] });
+        if(tokenNumber == 5 && rawQuotes.status == 429){
+            run = false;
+        }
+        console.log(tokenNumber);
+    }
     const quotes = await rawQuotes.json();
     let quoteA = "";
     let quoteB = "";
@@ -66,8 +73,9 @@ const quiz = async () => {
     console.log(answer);
     let buttons = document.querySelectorAll(".button");
     buttons.forEach(button =>{
-        button.addEventListener("click",async function(){
-            if(button.innerHTML === answer){
+        button.addEventListener("click",async function(evt){
+            let target = evt.target;
+            if(target.innerHTML === answer){
                 score+=10;
                 document.getElementById("extra").innerHTML = score;
                 await quiz();
@@ -100,7 +108,7 @@ function shuffle(array) {
 
 let timesplayed = 0;
 const runQuiz = async () => {
-
+    start.style.display = 'none';
     await quiz();
 
 }
@@ -113,5 +121,7 @@ const runQuiz = async () => {
     } while(timesplayed < 10);
 }
 */ 
-
-runQuiz();
+start.addEventListener('click', () => {
+    start.style.display = 'block';
+    runQuiz();
+})

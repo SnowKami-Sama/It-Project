@@ -11,6 +11,10 @@ app.get("/index", (req: any, res: any) => {
   res.render("index", {});
 });
 
+app.get("/quiz", (req: any, res: any) => {
+  res.render("quiz", {});
+});
+
 app.listen(app.get("port"), () =>
   console.log("[server] http://localhost:" + app.get("port") + "/index")
 );

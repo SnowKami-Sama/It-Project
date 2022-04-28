@@ -375,7 +375,27 @@ footer {
 	border-radius: 10px;
 	text-align: center;
 }
-
+#quizHolder{
+	display: none;
+}
+#startHolder{
+	display: flex;
+	justify-content: center;
+	height: 350px;
+	align-items: center;	
+}
+#startQuiz{
+	background-color: green;
+	border: 2px solid #dba800;
+	padding: 5px;
+	cursor: pointer;
+	color: #fff;
+	font-size: 22px;
+}
+#startQuiz:hover{
+	background-color: rgb(1, 147, 1);
+	padding: 4px;
+}
 @media only screen and (min-width: 60em) {
 	#Menu {
 		width: 70%;
@@ -443,5 +463,8 @@ footer {
 	#buttons .button{
 		display: inline;
 		
+	}
+	#startHolder{
+		height: 100%;
 	}
 }
