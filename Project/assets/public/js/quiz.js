@@ -19,99 +19,85 @@ let headersList = [{
     "Authorization": "Bearer XaGaBR8uAccCHCQrr-7Q"
 }]
 
-console.log(headersList.length);
-
 let tokenNumber  = 0;
 let score  = 0;
+let run = true;
+
+let start = document.getElementById('startHolder');
 
 const quiz = async () => {
-    const rawQuotes = await fetch('https://the-one-api.dev/v2/quote', { headers: headersList[tokenNumber] })
-    if (rawQuotes.status == 429) {
-        console.log("rate limited")
-    }
-    else {
+    document.getElementById('quizHolder').style.display = 'block';
+    const rawQuotes = await fetch('https://the-one-api.dev/v2/quote', { headers: headersList[tokenNumber] });
+    do {
+        if (rawQuotes.status == 429 && tokenNumber != 5) {
+            tokenNumber++;
+            rawQuotes = await fetch('https://the-one-api.dev/v2/quote', { headers: headersList[tokenNumber] });
+            if(tokenNumber == 5 && rawQuotes.status == 429){
+                run = false;
+            }
+            console.log(tokenNumber);
+        }
+        else{
+            run = false;
+        }
+    } while (run);
     const quotes = await rawQuotes.json();
-    const quote = quotes.docs[Math.floor(Math.random() * quotes.docs.length)];
-    document.getElementById("question").innerHTML = quote.dialog;
-    //const rawCharacters = await fetch('https://the-one-api.dev/v2/character/' + quote.character, { headers: headersList[tokenNumber] })
-    const rawCharacters = await fetch('https://the-one-api.dev/v2/character/', { headers: headersList[tokenNumber] });
-    const charJson = await rawCharacters.json();
+    let quoteA = "";
+    let quoteB = "";
+    let quoteC = "";
+    do {
+        quoteA = quotes.docs[Math.floor(Math.random() * quotes.docs.length)];
+        quoteB = quotes.docs[Math.floor(Math.random() * quotes.docs.length)];
+        quoteC = quotes.docs[Math.floor(Math.random() * quotes.docs.length)];
+        
+    } while (quoteA.character == quoteB.character || quoteA.character == quoteC.character || quoteB.character == quoteC.character);
+    console.log(quoteA);
+    console.log(quoteB);
+    console.log(quoteC);
+    document.getElementById("question").innerHTML = quoteA.dialog;
+    const answerCharacter = await fetch('https://the-one-api.dev/v2/character/' + quoteA.character, { headers: headersList[tokenNumber] });
+    const randomCharacterA = await fetch('https://the-one-api.dev/v2/character/' + quoteB.character, { headers: headersList[tokenNumber] });
+    const randomCharacterB = await fetch('https://the-one-api.dev/v2/character/' + quoteC.character, { headers: headersList[tokenNumber] });
+    const answerJson = await answerCharacter.json();
+    const randomJsonA = await randomCharacterA.json();
+    const randomJsonB = await randomCharacterB.json();
     
-    let charArray = Object.values(charJson);
     
-    const character = charArray[0];
-    console.log(quote.character + " - " + character._id);
-    console.log(character);
-    let characterA = character.findIndex(x => quote.character === character._id);
-    console.log(characterA);
-    let loop = true;
-    let characterB;
-    do{
-        characterB = character[Math.floor(Math.random() * character.length)].name;
-        if (characterA != characterB) loop = false;
-    } while(loop);
-    console.log(characterB);
-    loop = true;
-    let characterC;
-    do{
-        characterC = character[Math.floor(Math.random() * character.length)].name;
-        if (characterB != characterC && characterA != characterC) loop = false;
-    } while(loop);
-    console.log(characterC);
+    //console.log(charJson.find(id => quote._id === charJson[id]._id));
+    let answer = answerJson.docs[0].name;
+    let randomAnswerA = randomJsonA.docs[0].name;
+    let randomAnswerB = randomJsonB.docs[0].name;
 
-    let characterArray = [characterA, characterB, characterC];
-    console.log(characterArray);
+    let characterArray = [answer, randomAnswerA, randomAnswerB];
     let shuffledArray = shuffle(characterArray);
-    console.log(shuffledArray);
+
     for(let i = 0; i < 3; i++){
         console.log(`${i+1}. ${shuffledArray[i]}`);
         document.getElementById(`button${i+1}`).innerHTML = shuffledArray[i];
-    }}
-    document.getElementById("button1").onclick = function() {init(1)};
-    document.getElementById("button2").onclick = function() {init(2)};
-    document.getElementById("button3").onclick = function() {init(3)};
-    function init(keuze) {
-        console.log(keuze)
-    switch (keuze) {
-        case 1:
-            if(shuffledArray[0] == characterA.name){
-                console.log("Proficiat, juist antwoord!")
-                score++;
-            } else{
-                console.log("Fout antwoord!");
-            }
-            break;
-        case 2:
-            if(shuffledArray[1] == characterA.name){
-                console.log("Proficiat, juist antwoord!")
-                score++;
-            } else{
-                console.log("Fout antwoord!");
-            }
-            break;
-        case 3:
-            if(shuffledArray[2] == characterA.name){
-                console.log("Proficiat, juist antwoord!")
-                score++;
-            } else{
-                console.log("Fout antwoord!");
-            }
-            break;
-        default:
-            console.log('case broken')
-            break;
     }
-
+    console.log(answer);
+    let buttons = document.querySelectorAll(".button");
+    buttons.forEach(button =>{
+        button.addEventListener("click",async function(evt){
+            let target = evt.target;
+            if(target.innerHTML === answer){
+                score+=10;
+                document.getElementById("extra").innerHTML = score;
+                await quiz();
+            }
+        })
+    
+    });
     //checks the calls left on ur token
-    const callsLeft = rawCharacters.headers.get("X-RateLimit-Remaining");
+    /*const callsLeft = rawQuotes.headers.get("X-RateLimit-Remaining");
     if(callsLeft < 5 && tokenNumber < headersList.length){
         tokenNumber++;
     } else {
         tokenNumber = 0;
-    }
+    }*/
     // console.log(`Calls left: ${callsLeft}`);
 };
-};
+
 function shuffle(array) {
     let max = array.length;
     let i;
@@ -126,16 +112,21 @@ function shuffle(array) {
 }
 
 let timesplayed = 0;
+const runQuiz = async () => {
+    start.style.display = 'none';
+    await quiz();
 
+}
+/*
 const runQuiz = async () => {
     do{
         await quiz();
         timesplayed++;
         console.log(`\nScore = ${score}/${timesplayed}\n`);
-    } while(timesplayed < 1);
+    } while(timesplayed < 10);
 }
-const returnData = (myObject) => {
-    return Object.entries(myObject).map(([key, value]) => `${key}: ${value}`);
-}
-
-runQuiz();
+*/ 
+start.addEventListener('click', () => {
+    start.style.display = 'none';
+    runQuiz();
+})

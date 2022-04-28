@@ -19,7 +19,6 @@
 	--bg2: #242525;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
 
 /*RESET*/
 
@@ -46,7 +45,7 @@ li {
 }
 
 body {
-	font-family: 'Roboto', sans-serif;
+	font-family: Arial, Helvetica, sans-serif;
 	font-size: 16px;
 	line-height: 1, 5;
 }
@@ -75,13 +74,14 @@ li {
 
 /* FONT */
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+
 @font-face {
 	font-family: 'Ringbearer';
 	src: url('/font/ringbearer.woff') format('woff');
 }
 
 #container {
-	min-height: 100vh;
 	width: 100%;
 }
 
@@ -132,7 +132,6 @@ nav ul li a {
 .display {
 	position: fixed;
 	z-index: 1;
-	top: 100px;
 	right: 0;
 	display: block;
 	overflow: auto;
@@ -141,6 +140,7 @@ nav ul li a {
 	animation: topDown .3s linear;
 	opacity: 1;
 	background-color: var(--gray);
+	z-index: 3;
 }
 
 @keyframes topDown {
@@ -154,7 +154,6 @@ nav ul li a {
 
 .exitdisplay {
 	position: fixed;
-	top: 100px;
 	right: 0;
 	display: inline;
 	width: 100%;
@@ -263,12 +262,34 @@ footer {
 	background-position: center;
 	background-repeat: no-repeat;
 	min-height: 350px;
+	position: relative;
+	padding: 20px 0;
+}
+#buttons{
+	width: 200px;
+	margin: 0 auto;
+	text-align: center;
+}
+#buttons .button{
+	display: block;
+	min-width: 200px;
+	margin-top: 45px;
+}
+.currentScore{
+	position: absolute;
+	top: 50 - 20px;
+	right: 0;
+	color: #fff;
+	width: 100px;
+	height: 40px;
+	text-align: center;
 }
 
 #Scoreboard {
 	width: 100%;
 	display: flex;
-	justify-content: center;	
+	justify-content: center;
+	height: 400px;	
 }
 
 #Scores {
@@ -298,7 +319,7 @@ footer {
 	width: 100%;
 	text-align: center;
 	z-index: 1;
-  height: 0;
+  	height: 0;
 }
 
 #ScoreHeading h3 {
@@ -344,10 +365,112 @@ footer {
 	padding: 2px;
 	border-radius: 20px;
 	width: 25%;
-	font-size: 1.5vh;
+	font-size: 9px;
 	text-align: center;
 }
-
+#question{
+	color: white;
+	width: 90%;
+	margin: 0 auto;
+	padding: 5px;
+	background-color: rgba(128, 128, 128, 0.687);
+	border: #dba800 3px solid;
+	border-radius: 10px;
+	text-align: center;
+}
+#quizHolder{
+	display: none;
+}
+#startHolder{
+	display: flex;
+	justify-content: center;
+	height: 350px;
+	align-items: center;	
+}
+#startQuiz{
+	background-color: green;
+	border: 2px solid #dba800;
+	padding: 5px;
+	cursor: pointer;
+	color: #fff;
+	font-size: 22px;
+}
+#startQuiz:hover{
+	background-color: rgb(1, 147, 1);
+	padding: 4px;
+}
+@media only screen and (min-width: 60em) {
+	#Menu {
+		width: 70%;
+		height: 100px;
+	}
+	#Menu section ul {
+		position: static;
+		display: flex;
+		height: 100px;
+		justify-content: space-around;
+		align-items: center;
+		font-size: 16px;
+		animation: none;
+		align-items: center;
+	}
+	#Menu section .display {
+		position: static;
+		display: flex;
+		padding: 0;
+		animation: none;
+		justify-content: space-around;
+		height: 100px;
+		align-items: center;
+		min-height: 100px;
+		background-color: var(--red);
+	}
+	#Menu section .exitdisplay {
+		position: static;
+		display: flex;
+		padding: 0;
+		animation: none;
+		justify-content: space-around;
+		height: 100px;
+		align-items: center;
+	}
+	#Menu section ul li {
+		margin-top: 0;
+	}
+	#Menu section .display li {
+		margin-top: 0;
+	}
+	#Main_content {
+		width: 70%;
+	}
+	#Burger {
+		display: none;
+	}
+	#Scores {
+		height: 100%;
+	}
+	#Scoreboard {
+		width: 30%;
+		margin-top: 30px;
+	}
+	#Homeflex {
+		display: flex;
+		flex-wrap: wrap;
+		width: 100%;
+	}
+	#buttons{
+		width: 100%;
+		height: 350px;
+		line-height: 300px;
+	}
+	#buttons .button{
+		display: inline;
+		
+	}
+	#startHolder{
+		height: 100%;
+	}
+}
 /*
 
 		CSS FOR LANDING PAGINA
@@ -436,69 +559,6 @@ footer {
 	padding: 1rem;
 }
 
-
-
-@media only screen and (min-width: 60em) {
-	#Menu {
-		width: 70%;
-		height: 100px;
-	}
-	#Menu section ul {
-		position: static;
-		display: flex;
-		height: 100px;
-		justify-content: space-around;
-		align-items: center;
-		font-size: 16px;
-		animation: none;
-		align-items: center;
-	}
-	#Menu section .display {
-		position: static;
-		display: flex;
-		padding: 0;
-		animation: none;
-		justify-content: space-around;
-		height: 100px;
-		align-items: center;
-		min-height: 100px;
-		background-color: var(--red);
-	}
-	#Menu section .exitdisplay {
-		position: static;
-		display: flex;
-		padding: 0;
-		animation: none;
-		justify-content: space-around;
-		height: 100px;
-		align-items: center;
-	}
-	#Menu section ul li {
-		margin-top: 0;
-	}
-	#Menu section .display li {
-		margin-top: 0;
-	}
-	#Main_content {
-		width: 70%;
-	}
-	#Burger {
-		display: none;
-	}
-	#Scores {
-		height: 100%;
-	}
-	#Scoreboard {
-		width: 30%;
-		margin-top: 30px;
-	}
-	#Homeflex {
-		display: flex;
-		flex-wrap: wrap;
-		width: 100%;
-	}
-}
-
 /*
 
 		CSS FOR SOON PAGINA
@@ -506,12 +566,12 @@ footer {
 */
 
 .soon {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  color: white;
-  font-family: 'Roboto', sans-serif;
-  font-size: 25px;
-}
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	color: white;
+	font-family: 'Roboto', sans-serif;
+	font-size: 25px;
+  }
