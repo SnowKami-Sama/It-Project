@@ -26,7 +26,7 @@ let run = true;
 let start = document.getElementById('startQuiz');
 
 const quiz = async () => {
-    document.getElementById('quiz').style.display = 'block';
+    document.getElementById('quizHolder').style.display = 'block';
     const rawQuotes = await fetch('https://the-one-api.dev/v2/quote', { headers: headersList[tokenNumber] });
     if (rawQuotes.status == 429 && tokenNumber != 5) {
         tokenNumber++;
