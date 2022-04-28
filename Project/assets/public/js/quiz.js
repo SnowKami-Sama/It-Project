@@ -23,19 +23,24 @@ let tokenNumber  = 0;
 let score  = 0;
 let run = true;
 
-let start = document.getElementById('startQuiz');
+let start = document.getElementById('startHolder');
 
 const quiz = async () => {
     document.getElementById('quizHolder').style.display = 'block';
     const rawQuotes = await fetch('https://the-one-api.dev/v2/quote', { headers: headersList[tokenNumber] });
-    if (rawQuotes.status == 429 && tokenNumber != 5) {
-        tokenNumber++;
-        rawQuotes = await fetch('https://the-one-api.dev/v2/quote', { headers: headersList[tokenNumber] });
-        if(tokenNumber == 5 && rawQuotes.status == 429){
+    do {
+        if (rawQuotes.status == 429 && tokenNumber != 5) {
+            tokenNumber++;
+            rawQuotes = await fetch('https://the-one-api.dev/v2/quote', { headers: headersList[tokenNumber] });
+            if(tokenNumber == 5 && rawQuotes.status == 429){
+                run = false;
+            }
+            console.log(tokenNumber);
+        }
+        else{
             run = false;
         }
-        console.log(tokenNumber);
-    }
+    } while (run);
     const quotes = await rawQuotes.json();
     let quoteA = "";
     let quoteB = "";
@@ -122,6 +127,6 @@ const runQuiz = async () => {
 }
 */ 
 start.addEventListener('click', () => {
-    start.style.display = 'block';
+    start.style.display = 'none';
     runQuiz();
 })
