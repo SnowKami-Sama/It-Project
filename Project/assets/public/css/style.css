@@ -16,8 +16,10 @@
 	--darkpink: #ea215a;
 	--bg: rgb(7, 7, 7);
 	--orange: #dba800;
+	--bg2: #242525;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
 
 /*RESET*/
 
@@ -44,7 +46,7 @@ li {
 }
 
 body {
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: 'Roboto', sans-serif;
 	font-size: 16px;
 	line-height: 1, 5;
 }
@@ -353,14 +355,13 @@ footer {
 */
 
 .landing-page{
-	background-color: black;
+	background-color: var(--bg2);
 }
 
 .landing-body{
-	max-width: 90%;
 	margin: auto;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.507), 0 6px 20px 0 rgba(0, 0, 0, 0.39);
-	font-family: 'Tapestry';
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.4);
+	font-family: 'Roboto', sans-serif!important;
 }
 
 .quiz-choice{
@@ -372,6 +373,7 @@ footer {
 	max-height: 15%;
 	height: 15%;
 	color: white;
+	
 }
 
 .landing-container{
@@ -381,7 +383,7 @@ footer {
 	flex-direction: row;
 	flex-shrink: 1;
 	flex-wrap: wrap;
-	background-color: #242525;
+	background-color: var(--bg2);
 	color: white;
 }
 
@@ -495,4 +497,21 @@ footer {
 		flex-wrap: wrap;
 		width: 100%;
 	}
+}
+
+/*
+
+		CSS FOR SOON PAGINA
+
+*/
+
+.soon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  font-size: 25px;
 }
