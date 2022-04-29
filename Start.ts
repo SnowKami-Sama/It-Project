@@ -8,11 +8,11 @@ app.set("view engine", "ejs"); // EJS als view engine
 app.set("port", 3000);
 
 app.get("/index", (req: any, res: any) => {
-  res.render("landing", {});
+  res.render("index", {});
 });
 
-app.get("/quiz", (req: any, res: any) => {
-  res.render("quiz", {});
+app.get("/landing", (req: any, res: any) => {
+  res.render("landing", {});
 });
 
 app.get("/soon", (req: any, res: any) => {
@@ -20,6 +20,6 @@ app.get("/soon", (req: any, res: any) => {
 });
 
 app.listen(app.get("port"), () =>
-  console.log("[server] http://localhost:" + app.get("port") + "/index")
+  console.log("[server] http://localhost:" + app.get("port") + "/soon")
 );
 export {};
