@@ -120,6 +120,9 @@ const quiz = async () => {
             }
         }
     }
+    //console.log(answer);
+    //console.log(movie);
+
     // shuffle answers
 
     let characterArray = [answer, answerRandomA, answerRandomB];
@@ -156,6 +159,7 @@ const quiz = async () => {
                     remove.removeEventListener("click",add);
                 })
                 // run the compareValues function with a delay
+                
                 compareValues(answer,movie);
                 ifFetched = false;
             }
@@ -188,6 +192,7 @@ const compareValues = async (answer,movie) => {
             addedScore++;
         }
     }
+    
     if(nocounter){
         if(addedScore == 2){
             wrong = false;
@@ -277,8 +282,9 @@ const runQuiz = async (nocounter,wrong) => {
             console.log('finished');
         }
         else{
-            document.getElementById('numberOfQuestion').textContent = `question ${counter} of ${counter}`;
+            document.getElementById('numberOfQuestion').textContent = `question ${counter} of ?`;
             await quiz();
+            counter++;
         }
     }
 }
