@@ -1,3 +1,5 @@
+// initialisation
+
 let headersList = [{
     "Accept": "application/json",
     "Authorization": "Bearer W-z_z66pT1CTDgHxDGIg"
@@ -20,28 +22,48 @@ let headersList = [{
 }]
 
 let tokenNumber  = 0;
-let score  = 0;
+let score  = localStorage.setItem('score',"0");
 let run = true;
 
 let start = document.getElementById('startHolder');
-
+let startQuiz = document.getElementById('startQuiz');
+let startQuizSudden = document.getElementById('startQuizSudden');
+let buttonsCharacter = document.querySelectorAll(".character");
+let buttonsMovie = document.querySelectorAll(".movie");
+let allButtons = document.querySelectorAll(".button");
+let rawQuotes = "";
+let Characters = "";
+let Movies = "";
+let quotes = "";
+// quiz function
+let counter = 1;
+let nocounter = false;
 const quiz = async () => {
-    document.getElementById('quizHolder').style.display = 'block';
-    const rawQuotes = await fetch('https://the-one-api.dev/v2/quote', { headers: headersList[tokenNumber] });
-    do {
-        if (rawQuotes.status == 429 && tokenNumber != 5) {
-            tokenNumber++;
-            rawQuotes = await fetch('https://the-one-api.dev/v2/quote', { headers: headersList[tokenNumber] });
-            if(tokenNumber == 5 && rawQuotes.status == 429){
+    let ifFetched = true;
+
+    // fetch until status = ok => same length for all api-keys
+
+    if(rawQuotes == ""){
+        rawQuotes = await fetch('https://the-one-api.dev/v2/quote', { headers: headersList[tokenNumber] });
+        do {
+            if (rawQuotes.status == 429 && tokenNumber != 5) {
+                tokenNumber++;
+                rawQuotes = await fetch('https://the-one-api.dev/v2/quote', { headers: headersList[tokenNumber] });
+                if(tokenNumber == 5 && rawQuotes.status == 429){
+                    run = false;
+                }
+            }
+            else{
                 run = false;
             }
-            console.log(tokenNumber);
-        }
-        else{
-            run = false;
-        }
-    } while (run);
-    const quotes = await rawQuotes.json();
+        } while (run);
+        quotes = await rawQuotes.json();
+    }
+    
+    // fetch quotes
+
+    
+    
     let quoteA = "";
     let quoteB = "";
     let quoteC = "";
@@ -51,54 +73,173 @@ const quiz = async () => {
         quoteC = quotes.docs[Math.floor(Math.random() * quotes.docs.length)];
         
     } while (quoteA.character == quoteB.character || quoteA.character == quoteC.character || quoteB.character == quoteC.character);
-    console.log(quoteA);
-    console.log(quoteB);
-    console.log(quoteC);
-    document.getElementById("question").innerHTML = quoteA.dialog;
-    const answerCharacter = await fetch('https://the-one-api.dev/v2/character/' + quoteA.character, { headers: headersList[tokenNumber] });
-    const randomCharacterA = await fetch('https://the-one-api.dev/v2/character/' + quoteB.character, { headers: headersList[tokenNumber] });
-    const randomCharacterB = await fetch('https://the-one-api.dev/v2/character/' + quoteC.character, { headers: headersList[tokenNumber] });
-    const answerJson = await answerCharacter.json();
-    const randomJsonA = await randomCharacterA.json();
-    const randomJsonB = await randomCharacterB.json();
-    
-    
-    //console.log(charJson.find(id => quote._id === charJson[id]._id));
-    let answer = answerJson.docs[0].name;
-    let randomAnswerA = randomJsonA.docs[0].name;
-    let randomAnswerB = randomJsonB.docs[0].name;
+    document.getElementById("question").textContent = quoteA.dialog;
 
-    let characterArray = [answer, randomAnswerA, randomAnswerB];
-    let shuffledArray = shuffle(characterArray);
+    // fetch characters
+
+    let answer = "";
+    let answerRandomA = "";
+    let answerRandomB = "";
+    if(Characters == ""){
+        let rawCharacters = await fetch('https://the-one-api.dev/v2/character/', { headers: headersList[tokenNumber] });
+        Characters = await rawCharacters.json();
+            
+    }
+    for (let i = 0; i < Characters.docs.length; i++) {
+        if(quoteA.character == Characters.docs[i]._id){
+            answer = Characters.docs[i].name;
+        }
+        else if(quoteB.character == Characters.docs[i]._id){
+            answerRandomA = Characters.docs[i].name;
+        }
+        else if(quoteC.character == Characters.docs[i]._id){
+            answerRandomB = Characters.docs[i].name;
+        }
+    }
+
+    // fetch and get the movies
+
+    let movie = "";
+    let movieA = "";
+    let movieB = "";
+    
+    if(Movies == ""){
+        let rawMovies = await fetch('https://the-one-api.dev/v2/movie?offset=5/', { headers: headersList[tokenNumber] });
+        Movies = await rawMovies.json();
+    }
+    for (let i = 0; i < Movies.docs.length; i++) {
+        if(quoteA.movie == Movies.docs[i]._id){
+            movie = Movies.docs[i].name;
+            for (let j = 0; j < Movies.docs.length; j++) {
+                if(movie != Movies.docs[j].name && movieA == "" && movieB == ""){
+                    movieA = Movies.docs[j].name;
+                }
+                else if(movieA != "" && movieB == ""){
+                    movieB = Movies.docs[j].name;
+                }
+            }
+        }
+    }
+    // shuffle answers
+
+    let characterArray = [answer, answerRandomA, answerRandomB];
+    let shuffledCharArray = shuffle(characterArray);
+    let movieArray = [movie,movieA,movieB];
+    let shuffledMovArray = shuffle(movieArray);
+
+    // add values to buttons
 
     for(let i = 0; i < 3; i++){
-        console.log(`${i+1}. ${shuffledArray[i]}`);
-        document.getElementById(`button${i+1}`).innerHTML = shuffledArray[i];
+        if(buttonsCharacter[i].classList.contains('character')){
+            buttonsCharacter[i].textContent = shuffledCharArray[i];
+        }
     }
-    console.log(answer);
-    let buttons = document.querySelectorAll(".button");
-    buttons.forEach(button =>{
-        button.addEventListener("click",async function(evt){
-            let target = evt.target;
-            if(target.innerHTML === answer){
-                score+=10;
-                document.getElementById("extra").innerHTML = score;
-                await quiz();
-            }
-        })
+    for(let i = 0; i < 3; i++){
+        if(buttonsMovie[i].classList.contains('movie')){
+            buttonsMovie[i].textContent = shuffledMovArray[i];
+        }
+    }
     
+    // add listeners for each button
+    
+    allButtons.forEach(button =>{
+        button.addEventListener("click",async function add(evt){
+            let target = evt.target;
+            if(ifFetched){
+                // only add active class ifFetched is true wich is only once
+                addActive(target,buttonsCharacter,buttonsMovie);
+            }
+            // if the active array is equal to 2 and ifFetched is true wich is only once
+            if(document.querySelectorAll('.activeButton').length == 2 && ifFetched){
+                allButtons.forEach(remove =>{
+                    // remove eventlisteners for all buttons to prevent double clicking
+                    remove.removeEventListener("click",add);
+                })
+                // run the compareValues function with a delay
+                compareValues(answer,movie);
+                ifFetched = false;
+            }
+            
+        })
+        
     });
     //checks the calls left on ur token
-    /*const callsLeft = rawQuotes.headers.get("X-RateLimit-Remaining");
-    if(callsLeft < 5 && tokenNumber < headersList.length){
+    /*let callsLeft = rawQuotes.headers.get("X-RateLimit-Remaining");
+    if(callsLeft < 5 && tokenNumber <= headersList.length){
         tokenNumber++;
     } else {
         tokenNumber = 0;
-    }*/
-    // console.log(`Calls left: ${callsLeft}`);
+    }
+    console.log(rawQuotes);*/
 };
 
-function shuffle(array) {
+// function to collect values and compare values and add to the score if the correct answer is clicked
+
+const compareValues = async (answer,movie) => {
+    let addedScore = 0;
+    let wrong = false;
+   
+    for (let i = 0; i < document.querySelectorAll('.activeButton').length; i++) {
+        const element = document.querySelectorAll('.activeButton')[i].textContent;
+        if(element== answer || element == movie){
+            let currentScore = parseInt(localStorage.score);
+            currentScore+=5;
+            localStorage.setItem("score",`${currentScore}`);
+            addedScore++;
+        }
+    }
+    if(nocounter){
+        if(addedScore == 2){
+            wrong = false;
+        }
+        else{
+            wrong = true;
+        }
+    }
+    // timer voor volgende vraag
+    setTimeout(function(){addScore()},1000);
+    setTimeout(async function(){await runQuiz(nocounter,wrong)},1000);
+    setTimeout(function(){resetButtons()},1000);
+
+}
+
+const addScore = () =>{
+    document.getElementById("extra").textContent = localStorage.score;
+}
+
+// function to add active class to one movie and character button 
+
+const addActive = (target,buttonsCharacter,buttonsMovie) =>{
+    
+    if(target.classList.contains('character')){
+        
+        buttonsCharacter.forEach(remove =>{
+            remove.classList.remove('activeButton');
+        })
+        target.classList.add('activeButton');
+    }
+    else if(target.classList.contains('movie')){
+        
+        buttonsMovie.forEach(remove =>{
+            remove.classList.remove('activeButton');
+        })
+        target.classList.add('activeButton');
+    }
+
+}
+
+// function to reset the buttons on new request
+
+const resetButtons=()=>{
+    let alltmpButtons = document.querySelectorAll("button");
+    alltmpButtons.forEach(button =>{
+        button.classList.remove('activeButton');
+    })
+}
+
+// function to shuffle the array
+
+const shuffle = (array) => {
     let max = array.length;
     let i;
     let j;
@@ -111,22 +252,51 @@ function shuffle(array) {
     return array;
 }
 
-let timesplayed = 0;
-const runQuiz = async () => {
-    start.style.display = 'none';
-    await quiz();
+//function to run the quiz
 
+const runQuiz = async (nocounter,wrong) => {
+    
+    if(nocounter == false){
+        if(counter == 11){
+            document.getElementById('quizHolder').style.display = 'none';
+            document.getElementById('finished').style.display = 'flex';
+            document.getElementById('endScore').textContent = localStorage.score;
+            console.log('finished');
+        }
+        else{
+            document.getElementById('numberOfQuestion').textContent = `question ${counter} of 10`;
+            await quiz();
+        }
+        counter ++;
+    }
+    else if (nocounter == true){
+        if(wrong){
+            document.getElementById('quizHolder').style.display = 'none';
+            document.getElementById('finished').style.display = 'flex';
+            document.getElementById('endScore').textContent = localStorage.score;
+            console.log('finished');
+        }
+        else{
+            document.getElementById('numberOfQuestion').textContent = `question ${counter} of ${counter}`;
+            await quiz();
+        }
+    }
 }
-/*
-const runQuiz = async () => {
-    do{
-        await quiz();
-        timesplayed++;
-        console.log(`\nScore = ${score}/${timesplayed}\n`);
-    } while(timesplayed < 10);
-}
-*/ 
-start.addEventListener('click', () => {
+
+// Start quiz button
+
+startQuiz.addEventListener('click', () => {
     start.style.display = 'none';
-    runQuiz();
+    nocounter = false;
+    wrong = false;
+    runQuiz(nocounter,wrong);
+    document.getElementById('quizHolder').style.display = 'block';
+})
+
+startQuizSudden.addEventListener('click', () => {
+    start.style.display = 'none';
+    nocounter = true;
+    wrong = false;
+    runQuiz(nocounter,wrong);
+    document.getElementById('quizHolder').style.display = 'block';
 })
