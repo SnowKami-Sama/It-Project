@@ -53,7 +53,6 @@ function toggle(){
         menu.classList.remove("exitdisplay");
         menu.classList.add("display");
         menu.style.top = `${100 - window.scrollY}px`;
-        menu.style.height = `${menu.clientHeight + window.scrollY}px`;
         document.body.style.overflowY = "hidden";
     }
 

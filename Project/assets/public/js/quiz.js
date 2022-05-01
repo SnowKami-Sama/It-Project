@@ -296,7 +296,7 @@ startQuiz.addEventListener('click', () => {
     nocounter = false;
     wrong = false;
     runQuiz(nocounter,wrong);
-    document.getElementById('quizHolder').style.display = 'block';
+    document.getElementById('quizHolder').style.display = 'flex';
 })
 
 startQuizSudden.addEventListener('click', () => {
