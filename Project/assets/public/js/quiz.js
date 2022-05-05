@@ -269,7 +269,7 @@ const runQuiz = async (nocounter,wrong) => {
             console.log('finished');
         }
         else{
-            document.getElementById('numberOfQuestion').textContent = `question ${counter} of 10`;
+            document.getElementById('numberOfQuestion').textContent = `quote ${counter} of 10`;
             await quiz();
         }
         counter ++;
@@ -282,7 +282,7 @@ const runQuiz = async (nocounter,wrong) => {
             console.log('finished');
         }
         else{
-            document.getElementById('numberOfQuestion').textContent = `question ${counter} of ?`;
+            document.getElementById('numberOfQuestion').textContent = `quote ${counter} of ?`;
             await quiz();
             counter++;
         }
@@ -304,5 +304,5 @@ startQuizSudden.addEventListener('click', () => {
     nocounter = true;
     wrong = false;
     runQuiz(nocounter,wrong);
-    document.getElementById('quizHolder').style.display = 'block';
+    document.getElementById('quizHolder').style.display = 'flex';
 })
