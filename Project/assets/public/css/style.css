@@ -670,7 +670,8 @@ footer {
 	min-height: 90%;
 	margin: auto;
 	display: flex;
-	justify-content: center;
+	flex-direction: column;
+	align-items: center;
 }
 
 .fav-window>div{
