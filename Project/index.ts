@@ -24,6 +24,6 @@ app.get("/header", (req: any, res: any) => {
 });
 
 app.listen(app.get("port"), () =>
-  console.log("[server] http://localhost:" + app.get("port") + "/header")
+  console.log("[server] http://localhost:" + app.get("port") + "/index")
 );
 export {};
