@@ -652,3 +652,27 @@ footer {
 	font-family: 'Roboto', sans-serif;
 	font-size: 25px;
   }
+
+/*
+
+  		CSS FOR FAVOURITES
+
+*/
+
+.fav-body{
+	background-color: #1e1f1f;
+	color: white;
+}
+
+.fav-window{
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.507), 0 6px 20px 0 rgba(0, 0, 0, 0.39);
+	width: 95%;
+	min-height: 90%;
+	margin: auto;
+	display: flex;
+	justify-content: center;
+}
+
+.fav-window>div{
+	padding: 1em;
+}

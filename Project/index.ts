@@ -19,11 +19,11 @@ app.get("/soon", (req: any, res: any) => {
   res.render("soon", {});
 });
 
-app.get("/header", (req: any, res: any) => {
-  res.render("header", {});
+app.get("/favourites", (req: any, res: any) => {
+  res.render("favourites", {});
 });
 
 app.listen(app.get("port"), () =>
-  console.log("[server] http://localhost:" + app.get("port") + "/index")
+  console.log("[server] http://localhost:" + app.get("port") + "/favourites")
 );
 export {};
