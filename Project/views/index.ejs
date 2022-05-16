@@ -10,28 +10,7 @@
 </head>
 <body>
     <section id="container">
-        <header>
-           <section id="Menuholder">
-                <figure id="Logo">
-                    <img src="/img/Logo.png" alt="">
-                </figure>
-                <nav id="Menu">
-                    <section>
-                        <ul>
-                            <li><a href="/index" id="index" class="link">Home</a></li>
-                            <li><a href="/quiz" id="quiz" class="link">Quiz</a></li>
-                            <li><a href="/favorites" class="link">Favorites</a></li>
-                            <li><a href="/blacklist" class="link">Blacklist</a></li>
-                        </ul>
-                    </section>
-                    <section id="Burger" class="menu">
-                        <section class="menu-top menu-global line"></section>
-                        <section class="menu-middle menu-global line"></section>
-                        <section class="menu-bottom menu-global line"></section>
-                    </section>
-                </nav>
-           </section>
-        </header>
+        <%- include("header.ejs") %>
         <main>
             <section id="Homeflex">
                 <section id="Main_content">
