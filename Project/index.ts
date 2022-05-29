@@ -23,6 +23,12 @@ app.get("/header", (req: any, res: any) => {
   res.render("header", {});
 });
 
+function errorpage(req, res, next) {
+  res.render("error", {});
+}
+
+app.get("/404", errorpage);
+
 app.listen(app.get("port"), () =>
   console.log("[server] http://localhost:" + app.get("port") + "/index")
 );
