@@ -2,8 +2,6 @@ let burger = document.querySelector("#Burger").addEventListener("click",toggle);
 
 let menu = document.querySelector("#Menu ul");
 
-
-
 var Menu = {
   
   el: {

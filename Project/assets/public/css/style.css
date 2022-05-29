@@ -80,9 +80,12 @@ li {
 	font-family: 'Ringbearer';
 	src: url('/font/ringbearer.woff') format('woff');
 }
-
+.title,h2{
+	font-family: 'Ringbearer';
+}
 #container {
 	width: 100%;
+	height:100%;
 }
 
 
@@ -102,7 +105,7 @@ nav ul {
 nav ul li {
 	width: 300px;
 	margin: 0 auto;
-	margin-top: calc(18vh - 40px);
+	margin-top: 40px;
 }
 
 nav ul li a {
@@ -131,7 +134,7 @@ nav ul li a {
 
 .display {
 	position: fixed;
-	z-index: 1;
+	z-index: 10;
 	right: 0;
 	display: block;
 	overflow: auto;
@@ -160,6 +163,7 @@ nav ul li a {
 	min-height: 100%;
 	animation: bottomUp .3s linear;
 	opacity: 0;
+	z-index: 10;
 }
 
 @keyframes bottomUp {
@@ -240,30 +244,85 @@ nav ul li a {
 	transform: rotate(-410deg);
 	transition: 0.5s 0.5s;
 }
+/* TABLE */
 
+.tableHolder{
+	color: #fff;
+	width: 80%;
+	height: 400px;
+	overflow-y: scroll;
+}
+table th{
+	text-align: center;
+}
+table tr{
+	height: 60px;
+	width: 100%;
+}
+table .blacklistQuote,table .favoriteQuote{
+	color: white;
+	margin: 0 auto;
+	padding: 5px;
+	background-color: rgba(128, 128, 128, 0.687);
+	border: #dba800 3px solid;
+	border-radius: 10px;
+	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 50px;
+	overflow-y: auto;
+	margin-bottom: 10px;
+}
+table{
+	width: 100%;
+}
+.blacklistForm,.favoriteForm{
+	width: 30px;
+	padding: 5px;
+}
+.blacklistDeleteButton,.favoriteDeleteButton{
+	margin: 5px;
+}
 
+/* BUTTONS */
+
+#likeButton{
+	background-image: url("../img/like.png");
+	background-size: contain;
+	background-color: transparent;
+}
+#dislikeButton{
+	background-image: url("../img/dislike.png");
+	background-size: contain;
+	background-color: transparent;
+}
+#likeButton:hover,#dislikeButton:hover{
+	transform: scale(1.1);
+	transition: 1s;
+}
 /* FOOTER */
 
 footer {
 	background-color: var(--black);
 	color: var(--white);
 	padding: 10px;
-	height: 40px;
-	line-height: 40px;
+	height: 37px;
+	line-height: 37px;
 }
 
 
 /* MAIN */
-
+main{
+	min-height: 400px;
+}
 #Main_content {
 	width: 100%;
 	background-image: url("/img/background.jpg");
 	background-size: contain;
 	background-position: center;
 	background-repeat: no-repeat;
-	min-height: 400px;
 	position: relative;
-	padding: 20px 0;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -272,6 +331,18 @@ footer {
 	width: 200px;
 	margin: 0 auto;
 	text-align: center;
+}
+.likeButtons{
+	display: flex;
+	justify-content: space-around;
+}
+.likeButtons input[type="submit"]{
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+}
+.likeButtons input[type="submit"]:hover{
+	cursor: pointer;
 }
 .buttons .button{
 	display: block;
@@ -317,7 +388,6 @@ footer {
 }
 
 #Homeflex {
-	min-height: calc(100vh - 160px);
 	background-color: var(--bg);
 }
 
@@ -384,10 +454,11 @@ footer {
 	border: #dba800 3px solid;
 	border-radius: 10px;
 	text-align: center;
-	min-height: 50px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	height: 50px;
+	overflow-y: auto;
 }
 #numberOfQuestion{
 	color: #fff;
@@ -403,16 +474,15 @@ footer {
 }
 #quizContent{
 	width: 100%;
-	height: 100%;
 }
-#finished{
+#finishedSudden,#finished{
 	display: none;
 	justify-content: center;
 	height: 350px;
 	align-items: center;
 	color: #fff;
 }
-#endScore{
+#endScore,#endScoreSudden{
 	font-size: 25px;
 	color: #dba800;
 	text-align: center;
@@ -429,6 +499,12 @@ footer {
 }
 .animateFadeOut{
 	animation: fadeOut 1.5s linear;
+}
+#buttonSudden,#buttonNormal{
+	display:none;
+}
+#formSuddenInput,#formSuddenInput{
+	display:none;
 }
 @keyframes fadeIn{
 	0%{
@@ -475,6 +551,7 @@ footer {
 	text-align: center;
 }
 @media only screen and (min-width: 60em) {
+	
 	#Menu {
 		width: 70%;
 		height: 100px;
@@ -527,17 +604,15 @@ footer {
 	#Scoreboard {
 		width: 30%;
 		margin-top: 30px;
-		min-height: auto;
 	}
 	#Homeflex {
 		display: flex;
 		flex-wrap: wrap;
 		width: 100%;
+		height: 100%;
 	}
 	.buttons{
 		width: 100%;
-		height: 100px;
-		line-height: 100px;
 	}
 	.buttons .button{
 		display: inline;

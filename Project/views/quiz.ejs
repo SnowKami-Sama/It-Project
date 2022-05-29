@@ -1,15 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css">
-    <script src="./js/main.js" defer></script>
-    <script src="./js/quiz.js" defer></script>
-    <title>Lord of the "Strings"</title>
-</head>
-<body>
+<%- include("./partials/headerQuiz.ejs") %>
     <section id="container">
         <header>
            <section id="Menuholder">
@@ -21,8 +10,8 @@
                         <ul>
                             <li><a href="/index" id="index" class="link">Home</a></li>
                             <li><a href="/quiz" id="quiz" class="link">Quiz</a></li>
-                            <li><a href="/favorites" class="link">Favorites</a></li>
-                            <li><a href="/blacklist" class="link">Blacklist</a></li>
+                            <li><a href="/favorites" id="favorites" class="link">Favorites</a></li>
+                            <li><a href="/blacklist" id="blacklist" class="link">Blacklist</a></li>
                         </ul>
                     </section>
                     <section id="Burger" class="menu">
@@ -43,6 +32,21 @@
                             <section class="currentScore">
                                 <h3>Score</h3>
                                 <span id="extra">0</span>
+                                <section class="likeButtons">
+                                    <form id="favoriteForm" action="/like" method="post">
+                                        <input class="quoteId" name="id" type="hidden" value="">
+                                        <input class="content" name="content" type="hidden" value="">
+                                        <input class="characterForm" name="character" type="hidden" value="">
+                                        <input id="likeButton" type="submit" value="">
+                                    </form>
+                                    <form id="dislikeForm" action="/dislike" method="post">
+                                        <input class="quoteId" name="id" type="hidden" value="">
+                                        <input class="content" name="content" type="hidden" value="">
+                                        <input class="characterForm" name="character" type="hidden" value="">
+                                        <input id="dislikeButton" type="submit" value="">
+                                    </form>
+                                </section>
+                                <p id="userMessage"></p>
                             </section>
                             <h3 class="title">Choose a character:</h3>
                             <section class="buttons">
@@ -67,8 +71,32 @@
                     </div>
                     <div id="finished">
                         <div>
-                            <h2>Your Score:</h2>
+                            <h2 class="font">Your Score:</h2>
                             <p id="endScore"></p>
+                            <form id="formNormalInput" action="/quizNormal" method="post">
+                                <input type="hidden" id="scoreInput" name="score" value="">
+                                <input type="hidden" id="lastInput" name="lastScore" value="<%= lastNormalScore %>">
+                                <label for="input">New Highscore</label>
+                                <br>
+                                <input type="text" id="name" name="name" placeholder="ENTER NAME" minlength="3" maxlength="3">
+                                <br>
+                                <input type="submit" name="submit" value="Send">
+                            </form>
+                        </div>
+                    </div>
+                    <div id="finishedSudden">
+                        <div>
+                            <h2>Your Score:</h2>
+                            <p id="endScoreSudden"></p>
+                            <form id="formSuddenInput" action="/quizSudden" method="post">
+                                <input type="hidden" id="scoreInputSudden" name="score" value="">
+                                <input type="hidden" id="lastInputSudden" name="lastScoreSudden" value="<%= lastSuddenScore %>">
+                                <label for="input">New Highscore</label>
+                                <br>
+                                <input type="text" id="nameSudden" name="name" placeholder="ENTER NAME" minlength="3" maxlength="3">
+                                <br>
+                                <input type="submit" name="submit" value="Send">
+                            </form>
                         </div>
                     </div>
                 </section>
@@ -77,21 +105,22 @@
                         <section id="Shield"></section>
                         <section id="ScoreHeading">
                             <h3>High score</h3>
-                            <p>-SUDDEN DEATH-</p>
+                            <p id="scoreTitle"></p>
                         </section>
-                        <ul class="scoreList">
-                            <li class="score" id="score1">1 Name  SCORE</li>
-                            <li class="score" id="score2">2 Name  SCORE</li>
-                            <li class="score" id="score3">3 Name  SCORE</li>
-                            <li class="score" id="score4">4 Name  SCORE</li>
-                            <li class="score" id="score5">5 Name  SCORE</li>
+                        <ul id="list" class="scoreList">
+                            
                         </ul>
                         </section>
+                        <form id="formSudden" action="/quiz" method="post">
+                            <input id="buttonSudden" type="submit" value="fetchSudden">
+                        </form> 
+                        <form id="formNormal" action="/quiz" method="post">
+                            <input id="buttonNormal" type="submit" value="fetchNormal">
+                        </form> 
                 </section>
             </section>
         </main>
         <footer>
         </footer>
     </section>
-</body>
-</html>
+<%- include("./partials/footer.ejs") %>

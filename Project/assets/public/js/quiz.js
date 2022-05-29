@@ -1,4 +1,3 @@
-// initialisation
 
 let headersList = [{
     "Accept": "application/json",
@@ -20,9 +19,9 @@ let headersList = [{
     "Accept": "application/json",
     "Authorization": "Bearer XaGaBR8uAccCHCQrr-7Q"
 }]
-
 let tokenNumber  = 0;
 let score  = localStorage.setItem('score',"0");
+
 let run = true;
 
 let start = document.getElementById('startHolder');
@@ -35,9 +34,15 @@ let rawQuotes = "";
 let Characters = "";
 let Movies = "";
 let quotes = "";
-// quiz function
+let tempQuoteId = ""
 let counter = 1;
 let nocounter = false;
+
+let suddenValue = document.querySelector("#lastInputSudden").value;
+let normalValue = document.querySelector("#lastInput").value;
+
+let dislikedQuotes = [];
+// quiz function
 const quiz = async () => {
     let ifFetched = true;
 
@@ -58,22 +63,33 @@ const quiz = async () => {
             }
         } while (run);
         quotes = await rawQuotes.json();
+        result = quotes.docs.filter(quote => !dislikedQuotes.includes(quote._id));
+        
     }
     
     // fetch quotes
-
-    
     
     let quoteA = "";
     let quoteB = "";
     let quoteC = "";
     do {
-        quoteA = quotes.docs[Math.floor(Math.random() * quotes.docs.length)];
-        quoteB = quotes.docs[Math.floor(Math.random() * quotes.docs.length)];
-        quoteC = quotes.docs[Math.floor(Math.random() * quotes.docs.length)];
+        quoteA = result[Math.floor(Math.random() * quotes.docs.length)];
+        quoteB = result[Math.floor(Math.random() * quotes.docs.length)];
+        quoteC = result[Math.floor(Math.random() * quotes.docs.length)];
         
     } while (quoteA.character == quoteB.character || quoteA.character == quoteC.character || quoteB.character == quoteC.character);
     document.getElementById("question").textContent = quoteA.dialog;
+    let quoteIdArr = document.querySelectorAll(".quoteId");
+    quoteIdArr.forEach(input => {
+        input.value = quoteA._id;
+    });
+
+    let contentArr = document.querySelectorAll(".content");
+    contentArr.forEach(input => {
+        input.value = quoteA.dialog;
+    });
+
+    
 
     // fetch characters
 
@@ -96,7 +112,10 @@ const quiz = async () => {
             answerRandomB = Characters.docs[i].name;
         }
     }
-
+    let characterArr = document.querySelectorAll(".characterForm");
+    characterArr.forEach(input => {
+        input.value = answer;
+    });
     // fetch and get the movies
 
     let movie = "";
@@ -221,14 +240,14 @@ const addActive = (target,buttonsCharacter,buttonsMovie) =>{
         buttonsCharacter.forEach(remove =>{
             remove.classList.remove('activeButton');
         })
-        target.classList.add('activeButton');
+        target.classList.toggle('activeButton');
     }
     else if(target.classList.contains('movie')){
         
         buttonsMovie.forEach(remove =>{
             remove.classList.remove('activeButton');
         })
-        target.classList.add('activeButton');
+        target.classList.toggle('activeButton');
     }
 
 }
@@ -266,7 +285,10 @@ const runQuiz = async (nocounter,wrong) => {
             document.getElementById('quizHolder').style.display = 'none';
             document.getElementById('finished').style.display = 'flex';
             document.getElementById('endScore').textContent = localStorage.score;
-            console.log('finished');
+            document.getElementById("scoreInput").value = localStorage.score;
+            if(parseInt(document.getElementById("scoreInput").value) > parseInt(normalValue)){
+                document.getElementById('formNormalInput').style.display = 'block';
+            }
         }
         else{
             document.getElementById('numberOfQuestion').textContent = `quote ${counter} of 10`;
@@ -276,10 +298,14 @@ const runQuiz = async (nocounter,wrong) => {
     }
     else if (nocounter == true){
         if(wrong){
+            
             document.getElementById('quizHolder').style.display = 'none';
-            document.getElementById('finished').style.display = 'flex';
-            document.getElementById('endScore').textContent = localStorage.score;
-            console.log('finished');
+            document.getElementById('finishedSudden').style.display = 'flex';
+            document.getElementById('endScoreSudden').textContent = localStorage.score;
+            document.getElementById("scoreInputSudden").value = localStorage.score;
+            if(parseInt(document.getElementById("scoreInputSudden").value) > parseInt(suddenValue)){
+                document.getElementById('formSuddenInput').style.display = 'block';
+            }
         }
         else{
             document.getElementById('numberOfQuestion').textContent = `quote ${counter} of ?`;
@@ -305,4 +331,117 @@ startQuizSudden.addEventListener('click', () => {
     wrong = false;
     runQuiz(nocounter,wrong);
     document.getElementById('quizHolder').style.display = 'flex';
+    
 })
+
+// AJAX CALLS
+$('#startQuiz').on('click', () => {
+    $.ajax({
+        url: "/fetch",
+        type: 'POST',
+        success: function(response) {
+           dislikedQuotes = response.response;
+        }
+      });
+})
+$('#startQuizSudden').on('click', () => {
+    $.ajax({
+        url: "/fetch",
+        type: 'POST',
+        success: function(response) {
+           dislikedQuotes = response.response;
+        }
+      });
+})
+$(buttonNormal).on('click',function(e) {
+    e.preventDefault();
+    $.ajax({
+      url: $(this).attr("href"),
+      type: 'POST',
+      contentType: 'application/json',
+      success: function(response) {
+        document.getElementById("list").innerHTML = response.content;
+        document.getElementById("scoreTitle").innerHTML = response.title;
+      }
+    });
+  })
+  $(buttonSudden).on('click',function(e) {
+    e.preventDefault();
+    $.ajax({
+      url: $(this).attr("href"),
+      type: 'POST',
+      contentType: 'application/json',
+      success: function(response) {
+        document.getElementById("list").innerHTML = response.response;
+        document.getElementById("scoreTitle").innerHTML = response.titleSudden;
+      }
+    });
+  })
+  $('#dislikeForm').on('submit',function(e) {
+    var data = {
+      id: $('#dislikeForm .quoteId').val(),
+      content: $('#dislikeForm .content').val(),
+      character: $('#dislikeForm .characterForm').val(),
+    }
+    e.preventDefault();
+    $.ajax({
+      url: "/dislike",
+      type: 'POST',
+      data: JSON.stringify(data),
+      contentType: "application/json; charset=utf-8",
+      success: async function(response) {
+        document.getElementById("userMessage").textContent = "Quote added";
+        setTimeout(function() {
+          document.getElementById("userMessage").textContent = "";
+        },2000)
+        counter--;
+        await quiz();
+        
+      }
+    });
+    
+})
+$('#favoriteForm').on('submit',function(e) {
+    var data = {
+      id: $('#favoriteForm .quoteId').val(),
+      content: $('#favoriteForm .content').val(),
+      character: $('#favoriteForm .characterForm').val(),
+    }
+    e.preventDefault();
+    $.ajax({
+      url: "/like",
+      type: 'POST',
+      data: JSON.stringify(data),
+      contentType: "application/json; charset=utf-8",
+      success: async function(response) {
+        document.getElementById("userMessage").textContent = "Quote added";
+        setTimeout(function() {
+          document.getElementById("userMessage").textContent = "";
+        },2000)
+        counter--;
+      }
+    });
+})
+  window.onload = function(){
+
+    var buttonSudden = document.getElementById('buttonSudden');
+    var buttonNormal = document.getElementById('buttonNormal');
+
+    setTimeout(() => {
+      buttonNormal.click();
+    }, 100);
+
+    $('input[type="Submit"]').on('click',function (e) {
+      if (e.target.id == 'buttonNormal') {
+        setTimeout(() => {
+          buttonSudden.click();
+        }, 5000);
+      }
+      else if(e.target.id == 'buttonSudden'){
+        setTimeout(() => {
+          buttonNormal.click();
+        }, 5000);
+      }
+    });
+    
+};

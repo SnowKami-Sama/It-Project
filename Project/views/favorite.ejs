@@ -1,0 +1,68 @@
+<%- include("./partials/header.ejs") %>
+    <section id="container">
+        <header>
+            <section id="Menuholder">
+                 <figure id="Logo">
+                     <img src="/img/Logo.png" alt="">
+                 </figure>
+                 <nav id="Menu">
+                     <section>
+                         <ul>
+                             <li><a href="/index" id="index" class="link">Home</a></li>
+                             <li><a href="/quiz" id="quiz" class="link">Quiz</a></li>
+                             <li><a href="/favorites" id="favorites" class="link">Favorites</a></li>
+                             <li><a href="/blacklist" id="blacklist" class="link">Blacklist</a></li>
+                         </ul>
+                     </section>
+                     <section id="Burger" class="menu">
+                         <section class="menu-top menu-global line"></section>
+                         <section class="menu-middle menu-global line"></section>
+                         <section class="menu-bottom menu-global line"></section>
+                     </section>
+                 </nav>
+            </section>
+         </header>
+         <main>
+             <section id="Homeflex">
+                 <section id="Main_content">
+                    <section class="tableHolder">
+                        <h3 class="title">Favourites</h3>
+                        <table id="favoriteTable">
+                            <% for (var i = 0; i < allLikes.length; i++) { %>
+                                <tr>
+                                    <td class="favoriteQuote"><%= allLikes[i].content %></td>
+                                    <td class="favoriteForm">
+                                        <form id="favoriteForm<%= i %>" action="/delete" method="post">
+                                            <input id="idToDelete<%= i %>" type="hidden" name="id" value="<%= allLikes[i].id %>">
+                                            <input id="deletefavorite<%= i %>" type="submit" value="X" class="favoriteDeleteButton">
+                                        </form>
+                                    </td>
+                                </tr>
+                            <% } %>
+                          </table> 
+                    </section>
+                </section>
+                <section id="Scoreboard">
+                    <section id="Scores">
+                        <section id="Shield"></section>
+                        <section id="ScoreHeading">
+                            <h3>High score</h3>
+                            <p id="scoreTitle"></p>
+                        </section>
+                        <ul id="list" class="scoreList">
+                            
+                        </ul>
+                        </section>
+                        <form id="formSudden" action="/favorites" method="post">
+                            <input id="buttonSudden" type="submit" value="fetchSudden">
+                        </form> 
+                        <form id="formNormal" action="/favorites" method="post">
+                            <input id="buttonNormal" type="submit" value="fetchNormal">
+                        </form> 
+                </section>
+            </section>
+        </main>
+        <footer>
+        </footer>
+    </section>
+<%- include("./partials/footer.ejs") %>
