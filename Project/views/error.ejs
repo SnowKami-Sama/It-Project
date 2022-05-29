@@ -11,9 +11,18 @@
     <title>Choose Quiz</title>
 </head>
 <body class="landing-body">
-        <div class="soon">
-          <h1>COMING SOON</h1>
-          <p>Momenteel is deze quiz nog niet afgewerkt.</p>
+        <div class="error">
+            <%  if (url == "/429") { %>
+                <h1>System Overload</h1>
+                <p>Het blijkt dat onze quiz te populaire is, zal je aub willen wachten tot we wat meer plaats hebben? <i>(error 429)</i></p>
+                <% } else if (url == "/soon") { %>
+                <h1>COMING SOON</h1>
+                <p>Momenteel is deze quiz nog niet afgewerkt.</p>
+                <% } else { %>
+                <h1>Error 404</h1>
+                <p>Deze pagina is niet gevonden...</p>
+                <% } %>
+
           <button onclick="history.back()">Ga terug</button>
         </div>
 </body>

@@ -15,19 +15,14 @@ app.get("/quiz", (req: any, res: any) => {
   res.render("quiz", {});
 });
 
-app.get("/soon", (req: any, res: any) => {
-  res.render("soon", {});
-});
-
 app.get("/header", (req: any, res: any) => {
   res.render("header", {});
 });
 
-function errorpage(req, res, next) {
-  res.render("error", {});
-}
-
-app.get("/404", errorpage);
+app.get("/*", (req: any, res: any) => {
+    var url = req.originalUrl;
+    res.render("error", { url });
+});
 
 app.listen(app.get("port"), () =>
   console.log("[server] http://localhost:" + app.get("port") + "/index")
