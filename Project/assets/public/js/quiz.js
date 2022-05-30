@@ -391,10 +391,18 @@ $(buttonNormal).on('click',function(e) {
       data: JSON.stringify(data),
       contentType: "application/json; charset=utf-8",
       success: async function(response) {
-        document.getElementById("userMessage").textContent = "Quote added";
-        setTimeout(function() {
-          document.getElementById("userMessage").textContent = "";
-        },2000)
+        if(response.response.added){
+            document.getElementById("userMessage").textContent = "Quote added";
+            setTimeout(function() {
+            document.getElementById("userMessage").textContent = "";
+            },2000);
+        }
+        else{
+            document.getElementById("userMessage").textContent = "Quote exists";
+            setTimeout(function() {
+            document.getElementById("userMessage").textContent = "";
+            },2000);
+        }
         counter--;
       }
     });
@@ -413,10 +421,18 @@ $('#favoriteForm').on('submit',function(e) {
       data: JSON.stringify(data),
       contentType: "application/json; charset=utf-8",
       success: async function(response) {
-        document.getElementById("userMessage").textContent = "Quote added";
-        setTimeout(function() {
-          document.getElementById("userMessage").textContent = "";
-        },2000)
+        if(response.response.added){
+            document.getElementById("userMessage").textContent = "Quote added";
+            setTimeout(function() {
+            document.getElementById("userMessage").textContent = "";
+            },2000);
+        }
+        else{
+            document.getElementById("userMessage").textContent = "Quote exists";
+            setTimeout(function() {
+            document.getElementById("userMessage").textContent = "";
+            },2000);
+        }
         counter--;
       }
     });

@@ -257,10 +257,12 @@ app.post("/like", (req: any, res: any) => {
     let quoteId = req.body.id;
     let content = req.body.content;
     let character = req.body.character;
+    let added = false;
 
     let fetchAllLikes = await mongoose.connection.collection('Likes').find({}).toArray();
-    let lookforLikes = await mongoose.connection.collection('Likes').find({id:quoteId}).toArray();
-    if(lookforLikes.length == 0){
+    let lookforLike = await mongoose.connection.collection('Likes').find({id:quoteId}).toArray();
+    let lookforDislike= await mongoose.connection.collection('Dislikes').find({id:quoteId}).toArray();
+    if(lookforLike.length == 0 && lookforDislike.length == 0){
       const like = new Like({
         id: quoteId,
         content: content,
@@ -269,10 +271,11 @@ app.post("/like", (req: any, res: any) => {
       like.save()
       .catch((err : any) => {
         console.log(err);
-      })
+      });
+      added = true;
     }
       allLikes = fetchAllLikes;
-    res.send({response:quoteId,allLikes});
+    res.send({response:{quoteId,added},allLikes});
   }
   try{
     main();
@@ -288,10 +291,13 @@ app.post("/dislike", (req: any, res: any) => {
     let quoteId = req.body.id;
     let content = req.body.content;
     let character = req.body.character;
+    
+    let added = false;
 
     let fetchAllLikes = await mongoose.connection.collection('Dislikes').find({}).toArray();
-    let lookforLikes = await mongoose.connection.collection('Dislikes').find({id:quoteId}).toArray();
-    if(lookforLikes.length == 0){
+    let lookforDislike= await mongoose.connection.collection('Dislikes').find({id:quoteId}).toArray();
+    let lookforLike = await mongoose.connection.collection('Likes').find({id:quoteId}).toArray();
+    if(lookforLike.length == 0 && lookforDislike.length == 0){
       const dislike = new Dislike({
         id: quoteId,
         content: content,
@@ -300,10 +306,11 @@ app.post("/dislike", (req: any, res: any) => {
       dislike.save()
       .catch((err : any) => {
         console.log(err);
-      })
+      });
+      added = true;
     }
       allDislikes = fetchAllLikes;
-    res.send({response:quoteId,allDislikes});
+    res.send({response:{quoteId,added},allDislikes});
   }
   try{
     main();
@@ -329,7 +336,7 @@ app.post('/download', async (req:any, res:any) => {
 
   allLikes.forEach((like:any) => {
       content += `${like.content} -  ${like.character}\n`;
-  })
+  });
 
   res.status(200)
       .attachment(`favorites.txt`)

@@ -272,7 +272,7 @@ table .blacklistQuote,table .favoriteQuote{
 	justify-content: center;
 	height: 50px;
 	overflow-y: auto;
-	margin-bottom: 10px;
+	margin-bottom: 21px;
 }
 table{
 	width: 100%;
@@ -284,7 +284,21 @@ table{
 .blacklistDeleteButton,.favoriteDeleteButton{
 	margin: 5px;
 }
-
+.row{
+	position: relative;
+}
+.blacklistChearacter,.favoriteCharacter{
+	position: absolute;
+	padding: 10px;
+	font-size: 12px;
+	top: -25px;
+	left: -10px;
+}
+#downloadForm{
+	position: absolute;
+	top: 30px;
+	right: 10%;
+}
 /* BUTTONS */
 
 #likeButton{

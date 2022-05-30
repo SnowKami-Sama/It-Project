@@ -26,15 +26,15 @@
              <section id="Homeflex">
                  <section id="Main_content">
                     <section class="tableHolder">
-                        <h3 class="title">Favourites</h3>
-                        <form action="/download" method="post">
+                        <h3 class="title">Favorites</h3>
+                        <form id="downloadForm" action="/download" method="post">
                             <input type="submit" value="Download">
                         </form>
                         <table id="favoriteTable">
                             <% for (var i = 0; i < allLikes.length; i++) { %>
-                                <tr>
-                                    <td class="favoriteCharacter"><%= allLikes[i].character %></td>
-                                    <td class="favoriteQuote"><%= allLikes[i].content %></td>
+                                <tr class="row">
+                                    <td class="favoriteCharacter"><%= allLikes[i].character %> :</td>
+                                    <td class="favoriteQuote">" <i><%= allLikes[i].content %></i> "</td>
                                     <td class="favoriteForm">
                                         <form id="deletefavForm<%= i %>" action="/deletefav" method="post">
                                             <input id="idToDelete<%= i %>" type="hidden" name="id" value="<%= allLikes[i].id %>">
