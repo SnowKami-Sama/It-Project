@@ -38,7 +38,7 @@ app.route("/quiz")
     }
     let contentSudden = "";
     for (let i = 0; i < suddenScores.length; i++) {
-      contentSudden+=`<li class='score'>${suddenScores[i].playerName} ${suddenScores[i].highscore}</li>`
+      contentSudden+=`<li class='score'><strong>${suddenScores[i].playerName} ${suddenScores[i].highscore}</strong></li>`
     }
     let titleSudden = "-SUDDEN DEATH-";
     let title = "-NORMAL MODE-";

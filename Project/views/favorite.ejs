@@ -28,12 +28,12 @@
                     <section class="tableHolder">
                         <h3 class="title">Favorites</h3>
                         <form id="downloadForm" action="/download" method="post">
-                            <input type="submit" value="Download">
+                            <input type="submit" value="&#8659;">
                         </form>
                         <table id="favoriteTable">
                             <% for (var i = 0; i < allLikes.length; i++) { %>
                                 <tr class="row">
-                                    <td class="favoriteCharacter"><%= allLikes[i].character %> :</td>
+                                    <td class="favoriteCharacter"><a target="_blank" href="https://lotr.fandom.com/wiki/<%= allLikes[i].character %>"><%= allLikes[i].character %></a> :</td>
                                     <td class="favoriteQuote">" <i><%= allLikes[i].content %></i> "</td>
                                     <td class="favoriteForm">
                                         <form id="deletefavForm<%= i %>" action="/deletefav" method="post">
