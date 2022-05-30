@@ -176,6 +176,12 @@ app.post("/delete", async (req: any, res: any) => {
   allDislikes = await mongoose.connection.collection('Dislikes').find({}).toArray();
   res.send({response:{idToDelete,allDislikes}});
 });
+
+app.post("/deleteall", async (req: any, res: any) => {
+  allDislikes = await mongoose.connection.collection('Dislikes').find({}).toArray();
+  await mongoose.connection.collection('Dislikes').deleteMany({});
+});
+
 app.post("/quizNormal", async (req: any, res: any) => {
   
   let myScore = req.body.score;
