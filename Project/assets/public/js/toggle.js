@@ -14,7 +14,7 @@ $('[id^=deleteForm]').on('submit',function(e) {
     }
   });
 });
-$('[id^=favoriteForm]').on('submit',function(e) {
+$('[id^=deletefavForm]').on('submit',function(e) {
   e.preventDefault();
   var data = {
     id: $(this).find('[id^=idToDelete]').val(),

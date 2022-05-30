@@ -33,6 +33,7 @@
                         <table id="favoriteTable">
                             <% for (var i = 0; i < allLikes.length; i++) { %>
                                 <tr>
+                                    <td class="favoriteCharacter"><%= allLikes[i].character %></td>
                                     <td class="favoriteQuote"><%= allLikes[i].content %></td>
                                     <td class="favoriteForm">
                                         <form id="deletefavForm<%= i %>" action="/deletefav" method="post">
