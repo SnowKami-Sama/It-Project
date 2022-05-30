@@ -27,14 +27,17 @@
                  <section id="Main_content">
                     <section class="tableHolder">
                         <h3 class="title">Favourites</h3>
+                        <form action="/download" method="post">
+                            <input type="submit" value="Download">
+                        </form>
                         <table id="favoriteTable">
                             <% for (var i = 0; i < allLikes.length; i++) { %>
                                 <tr>
                                     <td class="favoriteQuote"><%= allLikes[i].content %></td>
                                     <td class="favoriteForm">
-                                        <form id="favoriteForm<%= i %>" action="/delete" method="post">
+                                        <form id="deletefavForm<%= i %>" action="/deletefav" method="post">
                                             <input id="idToDelete<%= i %>" type="hidden" name="id" value="<%= allLikes[i].id %>">
-                                            <input id="deletefavorite<%= i %>" type="submit" value="X" class="favoriteDeleteButton">
+                                            <input id="deleteFavorite<%= i %>" type="submit" value="X" class="favoriteDeleteButton">
                                         </form>
                                     </td>
                                 </tr>

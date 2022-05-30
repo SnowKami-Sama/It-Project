@@ -1,3 +1,5 @@
+import { stringify } from "querystring";
+
 const express = require("express");
 const app = express();
 const ejs = require("ejs");
@@ -318,6 +320,22 @@ app.post("/fetch", async(req: any, res: any) => {
   }
   res.send({response:allDislikes});
 });
+
+app.post('/download', async (req:any, res:any) => {
+
+  let content : any = "";
+
+  allLikes = await mongoose.connection.collection('Likes').find({}).toArray();
+
+  allLikes.forEach((like:any) => {
+      content += `${like.content} -  ${like.character}\n`;
+  })
+
+  res.status(200)
+      .attachment(`favorites.txt`)
+      .send(content);
+});
+
 try{
   db.connect()
   .then(() => {
