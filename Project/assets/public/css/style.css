@@ -389,6 +389,7 @@ main{
 
 #Homeflex {
 	background-color: var(--bg);
+	min-height: calc(100vh - 157px);
 }
 
 #ScoreHeading {

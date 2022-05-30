@@ -396,8 +396,6 @@ $(buttonNormal).on('click',function(e) {
           document.getElementById("userMessage").textContent = "";
         },2000)
         counter--;
-        await quiz();
-        
       }
     });
     
