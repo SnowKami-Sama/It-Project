@@ -33,7 +33,7 @@
                                     <td class="blacklistQuote"><%= allDislikes[i].content %></td>
                                     <td class="blacklistForm">
                                         <form id="deleteForm<%= i %>" action="/delete" method="post">
-                                            <input id="idToDelete<%= i %>" type="hidden" name="id" value="<%= allDislikes[i].id %>">
+                                            <input id="idToDelete<%= i %>"  name="id" value="<%= allDislikes[i].id %>">
                                             <input id="deleteBlacklist<%= i %>" type="submit" value="X" class="blacklistDeleteButton">
                                         </form>
                                     </td>
@@ -42,8 +42,8 @@
                             <tr>
                                 <td class="blacklistQuote">Delete All</td>
                                 <td class="blacklistForm">
-                                    <form action="/deleteall" method="post">
-                                        <input type="submit" value="X">
+                                    <form action="/deleteall" method="post" id="deleteAllForm">
+                                        <input type="submit" value="X" id="blacklistDeleteAllButton">
                                     </form>
                                 </td>
                             </tr>

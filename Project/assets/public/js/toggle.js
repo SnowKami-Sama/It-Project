@@ -29,6 +29,17 @@ $('[id^=favoriteForm]').on('submit',function(e) {
     }
   });
 });
+$('[id^=deleteAllForm]').on('submit',function(e) {
+  e.preventDefault();
+  $.ajax({
+    url: '/deleteall',
+    type: 'POST',
+    contentType: "application/json; charset=utf-8",
+    success: function(response) {
+        window.location.reload();
+    }
+  });
+});
 $(buttonNormal).on('click',function(e) {
     e.preventDefault();
     $.ajax({
