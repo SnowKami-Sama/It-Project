@@ -713,11 +713,11 @@ main{
 
 /*
 
-		CSS FOR SOON PAGINA
+		CSS FOR SOON/ERROR PAGINA
 
 */
 
-.soon {
+.error {
 	position: absolute;
 	top: 50%;
 	left: 50%;

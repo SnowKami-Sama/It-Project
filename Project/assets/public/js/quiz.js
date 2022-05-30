@@ -56,6 +56,7 @@ const quiz = async () => {
                 rawQuotes = await fetch('https://the-one-api.dev/v2/quote', { headers: headersList[tokenNumber] });
                 if(tokenNumber == 5 && rawQuotes.status == 429){
                     run = false;
+                    window.location.replace("./429");
                 }
             }
             else{

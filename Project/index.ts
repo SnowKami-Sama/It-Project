@@ -330,8 +330,13 @@ catch(e){
   console.log(e);
 }
 
-app.get("/soon", (req: any, res: any) => {
-  res.render("soon", {});
+app.get("/header", (req: any, res: any) => {
+  res.render("header", {});
+});
+
+app.get("/*", (req: any, res: any) => {
+    var url = req.originalUrl;
+    res.render("error", { url });
 });
 
 export {};
