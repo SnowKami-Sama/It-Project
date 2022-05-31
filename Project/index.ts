@@ -3,7 +3,7 @@ import { stringify } from "querystring";
 const express = require("express");
 const app = express();
 const ejs = require("ejs");
-
+const html = require("html-entities");
 const mongoose = require("mongoose");
 
 const ObjectId = require('mongodb').ObjectId;
@@ -42,8 +42,14 @@ app.route("/quiz")
     }
     let titleSudden = "-SUDDEN DEATH-";
     let title = "-NORMAL MODE-";
-    let lastNormalScore = normalScores[normalScores.length - 1].highscore;
-    let lastSuddenScore = suddenScores[suddenScores.length - 1].highscore;
+    let lastSuddenScore = 0;
+    let lastNormalScore = 0;
+    if(suddenScores.length == 5){
+      lastSuddenScore = suddenScores[suddenScores.length - 1].highscore;
+    }
+    if(suddenScores.length == 5){
+      lastNormalScore = normalScores[normalScores.length - 1].highscore;
+    }
     res.render("quiz", {content,contentSudden,titleSudden,title,lastNormalScore,lastSuddenScore});
  
 })
@@ -55,11 +61,11 @@ app.route("/quiz")
     
     let content = "";
     for (let i = 0; i < normalScores.length; i++) {
-      content+=`<li class='score'>${normalScores[i].playerName} ${normalScores[i].highscore}</li>`
+      content+=`<li class='score'><b>${normalScores[i].playerName} ${normalScores[i].highscore}<b></li>`
     }
     let contentSudden = "";
     for (let i = 0; i < suddenScores.length; i++) {
-      contentSudden+=`<li class='score'>${suddenScores[i].playerName} ${suddenScores[i].highscore}</li>`
+      contentSudden+=`<li class='score'><b>${suddenScores[i].playerName} ${suddenScores[i].highscore}<b></li>`
     }
     let titleSudden = "-SUDDEN DEATH-";
     let title = "-NORMAL MODE-";
@@ -82,11 +88,11 @@ app.get("/blacklist", async(req: any, res: any) => {
   
   let content = "";
   for (let i = 0; i < normalScores.length; i++) {
-    content+=`<li class='score'>${normalScores[i].playerName} ${normalScores[i].highscore}</li>`
+    content+=`<li class='score'><b>${normalScores[i].playerName} ${normalScores[i].highscore}<b></li>`
   }
   let contentSudden = "";
   for (let i = 0; i < suddenScores.length; i++) {
-    contentSudden+=`<li class='score'>${suddenScores[i].playerName} ${suddenScores[i].highscore}</li>`
+    contentSudden+=`<li class='score'><b>${suddenScores[i].playerName} ${suddenScores[i].highscore}<b></li>`
   }
   let titleSudden = "-SUDDEN DEATH-";
   let title = "-NORMAL MODE-";
@@ -102,11 +108,11 @@ try{
   
   let content = "";
   for (let i = 0; i < normalScores.length; i++) {
-    content+=`<li class='score'>${normalScores[i].playerName} ${normalScores[i].highscore}</li>`
+    content+=`<li class='score'><b>${normalScores[i].playerName} ${normalScores[i].highscore}<b></li>`
   }
   let contentSudden = "";
   for (let i = 0; i < suddenScores.length; i++) {
-    contentSudden+=`<li class='score'>${suddenScores[i].playerName} ${suddenScores[i].highscore}</li>`
+    contentSudden+=`<li class='score'><b>${suddenScores[i].playerName} ${suddenScores[i].highscore}<b></li>`
   }
   let titleSudden = "-SUDDEN DEATH-";
   let title = "-NORMAL MODE-";
@@ -129,11 +135,11 @@ app.get("/favorites", async(req: any, res: any) => {
   
   let content = "";
   for (let i = 0; i < normalScores.length; i++) {
-    content+=`<li class='score'>${normalScores[i].playerName} ${normalScores[i].highscore}</li>`
+    content+=`<li class='score'><b>${normalScores[i].playerName} ${normalScores[i].highscore}<b></li>`
   }
   let contentSudden = "";
   for (let i = 0; i < suddenScores.length; i++) {
-    contentSudden+=`<li class='score'>${suddenScores[i].playerName} ${suddenScores[i].highscore}</li>`
+    contentSudden+=`<li class='score'><b>${suddenScores[i].playerName} ${suddenScores[i].highscore}<b></li>`
   }
   let titleSudden = "-SUDDEN DEATH-";
   let title = "-NORMAL MODE-";
@@ -149,11 +155,11 @@ try{
   
   let content = "";
   for (let i = 0; i < normalScores.length; i++) {
-    content+=`<li class='score'>${normalScores[i].playerName} ${normalScores[i].highscore}</li>`
+    content+=`<li class='score'><b>${normalScores[i].playerName} ${normalScores[i].highscore}<b></li>`
   }
   let contentSudden = "";
   for (let i = 0; i < suddenScores.length; i++) {
-    contentSudden+=`<li class='score'>${suddenScores[i].playerName} ${suddenScores[i].highscore}</li>`
+    contentSudden+=`<li class='score'><b>${suddenScores[i].playerName} ${suddenScores[i].highscore}<b></li>`
   }
   let titleSudden = "-SUDDEN DEATH-";
   let title = "-NORMAL MODE-";
@@ -188,7 +194,7 @@ app.post("/quizNormal", async (req: any, res: any) => {
 
     if(normalScores.length < 5){
       const highscore = new HighscoreNormal({
-        playerName: name,
+        playerName: html.encode(name),
         highscore: myScore
       })
       highscore.save()
@@ -221,7 +227,7 @@ app.post("/quizSudden", (req: any, res: any) => {
 
     if(suddenScores.length < 5){
       const highscore = new HighscoreSudden({
-        playerName: name,
+        playerName: html.encode(name),
         highscore: myScore
       })
       highscore.save()

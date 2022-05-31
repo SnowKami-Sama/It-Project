@@ -428,12 +428,12 @@ main{
 }
 
 #ScoreHeading h3 {
-	font-size: 14px;
+	font-size: 2vh;
 	color: var(--orange);
 }
 
 #ScoreHeading p {
-	font-size: 8px;
+	font-size: 2vh;
 	color: var(--white);
 }
 
@@ -456,7 +456,6 @@ main{
 }
 
 .scoreList {
-	font-size: 60%;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
@@ -469,7 +468,7 @@ main{
 	color: var(--gold);
 	padding: 2px;
 	width: 35%;
-	font-size: 11px;
+	font-size: 2vh;
 	text-align: center;
 }
 #question{
