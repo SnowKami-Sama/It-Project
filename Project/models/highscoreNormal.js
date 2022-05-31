@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const highscoreSchema = new Schema({
     playerName: {
         type: "string",
-        required: true
+        required: true,
+        default: "AAA"
     },
     highscore: {
         type: "string",
