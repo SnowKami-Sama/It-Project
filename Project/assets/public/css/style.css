@@ -261,17 +261,20 @@ table tr{
 table .blacklistQuote,table .favoriteQuote{
 	color: white;
 	margin: 0 auto;
-	padding: 5px;
+	padding: 15px;
 	background-color: rgba(128, 128, 128, 0.687);
 	border: #dba800 3px solid;
 	border-radius: 10px;
-	text-align: center;
+	text-align:justify;
 	display: flex;
-	align-items: center;
+	align-items: flex-start;
 	justify-content: center;
 	height: 50px;
 	overflow-y: auto;
 	margin-bottom: 21px;
+}
+table .blacklistQuote i ,table .favoriteQuote i {
+	margin: auto;
 }
 table{
 	width: 100%;
@@ -411,7 +414,7 @@ main{
 #Scores {
 	width: 100%;
 	border-radius: 15px;
-	font-size: 3vh;
+	font-size:calc(11px + .2vw);
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
@@ -434,12 +437,11 @@ main{
 }
 
 #ScoreHeading h3 {
-	font-size:calc(7px + .3vw);
 	color: var(--orange);
+	font-family: "Ringbearer";
 }
 
 #ScoreHeading p {
-	font-size:calc(7px + .3vw);
 	color: var(--white);
 }
 
@@ -474,7 +476,6 @@ main{
 	color: var(--gold);
 	padding: 2px;
 	width: 35%;
-	font-size:calc(7px + .3vw);
 	text-align: center;
 }
 #question{
@@ -526,6 +527,16 @@ main{
 	height: 350px;
 	align-items: center;
 	animation: fadeIn 1.5s linear;
+}
+#name,#nameSudden{
+	padding: 7px;
+	text-align: center;
+}
+.endTitle{
+	padding: 5px;
+	text-align: center;
+	width: 100%;
+	display: inline-block;
 }
 .animateFadeIn{
 	animation: fadeIn 1.5s linear;

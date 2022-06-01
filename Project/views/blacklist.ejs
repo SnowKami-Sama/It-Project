@@ -31,7 +31,7 @@
                             <% for (var i = 0; i < allDislikes.length; i++) { %>
                                 <tr class="row">
                                     <td class="blacklistChearacter"><%= allDislikes[i].character %> :</td>
-                                    <td class="blacklistQuote">" <i><%= allDislikes[i].content %></i> "</td>
+                                    <td class="blacklistQuote"><i>" <%= allDislikes[i].content %> "</i></td>
                                     <td class="blacklistForm">
                                         <form id="deleteForm<%= i %>" action="/delete" method="post">
                                             <input id="idToDelete<%= i %>" type="hidden" name="id" value="<%= allDislikes[i].id %>">

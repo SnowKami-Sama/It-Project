@@ -72,14 +72,14 @@
                     </div>
                     <div id="finished">
                         <div>
-                            <h2 class="font">Your Score:</h2>
+                            <h2 class="font endTitle">Your Score:</h2>
                             <p id="endScore"></p>
                             <form id="formNormalInput" action="/quizNormal" method="post">
                                 <input type="hidden" id="scoreInput" name="score" value="">
                                 <input type="hidden" id="lastInput" name="lastScore" value="<%= lastNormalScore %>">
-                                <label for="input">New Highscore</label>
+                                <label class="endTitle" for="name">New Highscore</label>
                                 <br>
-                                <input type="text" id="name" name="name" placeholder="ENTER NAME" minlength="3" maxlength="3">
+                                <input type="text" id="name" name="name" placeholder="AAA" minlength="3" maxlength="3" required>
                                 <br>
                                 <input type="submit" name="submit" value="Send">
                             </form>
@@ -87,14 +87,14 @@
                     </div>
                     <div id="finishedSudden">
                         <div>
-                            <h2>Your Score:</h2>
+                            <h2 class="font endTitle">Your Score:</h2>
                             <p id="endScoreSudden"></p>
                             <form id="formSuddenInput" action="/quizSudden" method="post">
                                 <input type="hidden" id="scoreInputSudden" name="score" value="">
                                 <input type="hidden" id="lastInputSudden" name="lastScoreSudden" value="<%= lastSuddenScore %>">
-                                <label for="input">New Highscore</label>
+                                <label class="endTitle" for="nameSudden">New Highscore</label>
                                 <br>
-                                <input type="text" id="nameSudden" name="name" placeholder="ENTER NAME" minlength="3" maxlength="3">
+                                <input type="text" id="nameSudden" name="name" placeholder="AAA" minlength="3" maxlength="3" required>
                                 <br>
                                 <input type="submit" name="submit" value="Send">
                             </form>
