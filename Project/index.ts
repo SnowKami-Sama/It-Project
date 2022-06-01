@@ -14,7 +14,51 @@ const Dislike : any = require('./models/dislikeSchema');
 const Like : any = require('./models/likeSchema');
 let allDislikes : Array<string> = [];
 let allLikes : Array<string> = [];
+let content = "";
+let contentSudden = "";
+let normalScores : any = [];
+let suddenScores : any = [];
+let titleSudden : string = "-SUDDEN DEATH-";
+let title : string = "-NORMAL MODE-";
+let lastSuddenScore = 0;
+let lastNormalScore = 0;
+let fetchAllLikes : any = [];
 
+const fetchScoreBoard = async(path:string) => {
+  const normaldocs = await HighscoreNormal.find().sort({"highscore": -1}).exec();
+  const suddendocs = await HighscoreSudden.find().sort({"highscore": -1}).exec();
+  normalScores = normaldocs
+  suddenScores = suddendocs
+  
+    content = "";
+    for (let i = 0; i < normalScores.length; i++) {
+      content+=`<li class='score'><b>${normalScores[i].playerName} ${normalScores[i].highscore}</b></li>`
+    }
+    contentSudden = "";
+    for (let i = 0; i < suddenScores.length; i++) {
+      contentSudden+=`<li class='score'><b>${suddenScores[i].playerName} ${suddenScores[i].highscore}</b></li>`
+    }
+    if(path == "/quiz" ){
+      lastSuddenScore = 0;
+      lastNormalScore = 0;
+      if(suddenScores.length == 5){
+        lastSuddenScore = suddenScores[suddenScores.length - 1].highscore;
+      }
+      if(suddenScores.length == 5){
+        lastNormalScore = normalScores[normalScores.length - 1].highscore;
+      }
+    }
+    else if(path == "/blacklist" ){
+      fetchAllLikes = await mongoose.connection.collection('Dislikes').find({}).toArray();
+  
+      allDislikes = fetchAllLikes;
+    }
+    else if(path == "/favorites" ){
+      fetchAllLikes = await mongoose.connection.collection('Likes').find({}).toArray();
+  
+      allLikes = fetchAllLikes;
+    }
+}
 
 app.use(express.static(__dirname + "/assets/public/"));
 
@@ -30,45 +74,14 @@ app.get("/index", (req: any, res: any) => {
 app.route("/quiz")
 .get(async function(req: any, res: any){
     
-    let normalScores = await mongoose.connection.collection('HighscoresNormal').find({}).sort({highscore:-1}).collation({locale: "en_US", numericOrdering: true}).toArray();
-    let suddenScores = await mongoose.connection.collection('HighscoresSudden').find({}).sort({highscore:-1}).collation({locale: "en_US", numericOrdering: true}).toArray();
-    let content = "";
-    for (let i = 0; i < normalScores.length; i++) {
-      content+=`<li class='score'>${normalScores[i].playerName} ${normalScores[i].highscore}</li>`
-    }
-    let contentSudden = "";
-    for (let i = 0; i < suddenScores.length; i++) {
-      contentSudden+=`<li class='score'><strong>${suddenScores[i].playerName} ${suddenScores[i].highscore}</strong></li>`
-    }
-    let titleSudden = "-SUDDEN DEATH-";
-    let title = "-NORMAL MODE-";
-    let lastSuddenScore = 0;
-    let lastNormalScore = 0;
-    if(suddenScores.length == 5){
-      lastSuddenScore = suddenScores[suddenScores.length - 1].highscore;
-    }
-    if(suddenScores.length == 5){
-      lastNormalScore = normalScores[normalScores.length - 1].highscore;
-    }
+    await fetchScoreBoard(req.route.path);
+    
     res.render("quiz", {content,contentSudden,titleSudden,title,lastNormalScore,lastSuddenScore});
  
 })
 .post(async function(req: any, res: any){
   try{
-
-    let normalScores = await mongoose.connection.collection('HighscoresNormal').find({}).sort({highscore:-1}).collation({locale: "en_US", numericOrdering: true}).toArray();
-    let suddenScores = await mongoose.connection.collection('HighscoresSudden').find({}).sort({highscore:-1}).collation({locale: "en_US", numericOrdering: true}).toArray();
-    
-    let content = "";
-    for (let i = 0; i < normalScores.length; i++) {
-      content+=`<li class='score'><b>${normalScores[i].playerName} ${normalScores[i].highscore}<b></li>`
-    }
-    let contentSudden = "";
-    for (let i = 0; i < suddenScores.length; i++) {
-      contentSudden+=`<li class='score'><b>${suddenScores[i].playerName} ${suddenScores[i].highscore}<b></li>`
-    }
-    let titleSudden = "-SUDDEN DEATH-";
-    let title = "-NORMAL MODE-";
+    fetchScoreBoard(req.route.path);
     res.send({response:contentSudden,titleSudden,content,title});
   }
   catch(e) {
@@ -77,45 +90,12 @@ app.route("/quiz")
  
 });
 app.get("/blacklist", async(req: any, res: any) => {
-  const normaldocs = await HighscoreNormal.find();
-  const suddendocs = await HighscoreSudden.find();
-  let normalScores = normaldocs.sort();
-  let suddenScores = suddendocs.sort();
-
-  let fetchAllLikes = await mongoose.connection.collection('Dislikes').find({}).toArray();
-  
-  allDislikes = fetchAllLikes;
-  
-  let content = "";
-  for (let i = 0; i < normalScores.length; i++) {
-    content+=`<li class='score'><b>${normalScores[i].playerName} ${normalScores[i].highscore}<b></li>`
-  }
-  let contentSudden = "";
-  for (let i = 0; i < suddenScores.length; i++) {
-    contentSudden+=`<li class='score'><b>${suddenScores[i].playerName} ${suddenScores[i].highscore}<b></li>`
-  }
-  let titleSudden = "-SUDDEN DEATH-";
-  let title = "-NORMAL MODE-";
+  await fetchScoreBoard(req.route.path);
   res.render("blacklist", {content,contentSudden,titleSudden,title,allDislikes});
-
 })
 app.post("/blacklist", async(req: any, res: any) => {
 try{
-  const normaldocs = await HighscoreNormal.find();
-  const suddendocs = await HighscoreSudden.find();
-  let normalScores = normaldocs.sort();
-  let suddenScores = suddendocs.sort();
-  
-  let content = "";
-  for (let i = 0; i < normalScores.length; i++) {
-    content+=`<li class='score'><b>${normalScores[i].playerName} ${normalScores[i].highscore}<b></li>`
-  }
-  let contentSudden = "";
-  for (let i = 0; i < suddenScores.length; i++) {
-    contentSudden+=`<li class='score'><b>${suddenScores[i].playerName} ${suddenScores[i].highscore}<b></li>`
-  }
-  let titleSudden = "-SUDDEN DEATH-";
-  let title = "-NORMAL MODE-";
+  await fetchScoreBoard(req.route.path);
   res.send({response:contentSudden,titleSudden,content,title});
 }
 catch(e) {
@@ -124,45 +104,13 @@ catch(e) {
 
 });
 app.get("/favorites", async(req: any, res: any) => {
-  const normaldocs = await HighscoreNormal.find();
-  const suddendocs = await HighscoreSudden.find();
-  let normalScores = normaldocs.sort();
-  let suddenScores = suddendocs.sort();
-
-  let fetchAllLikes = await mongoose.connection.collection('Likes').find({}).toArray();
-  
-  allLikes = fetchAllLikes;
-  
-  let content = "";
-  for (let i = 0; i < normalScores.length; i++) {
-    content+=`<li class='score'><b>${normalScores[i].playerName} ${normalScores[i].highscore}<b></li>`
-  }
-  let contentSudden = "";
-  for (let i = 0; i < suddenScores.length; i++) {
-    contentSudden+=`<li class='score'><b>${suddenScores[i].playerName} ${suddenScores[i].highscore}<b></li>`
-  }
-  let titleSudden = "-SUDDEN DEATH-";
-  let title = "-NORMAL MODE-";
+  await fetchScoreBoard(req.route.path);
   res.render("favorite", {content,contentSudden,titleSudden,title,allLikes});
 
 })
 app.post("/favorites", async(req: any, res: any) => {
 try{
-  const normaldocs = await HighscoreNormal.find();
-  const suddendocs = await HighscoreSudden.find();
-  let normalScores = normaldocs.sort();
-  let suddenScores = suddendocs.sort();
-  
-  let content = "";
-  for (let i = 0; i < normalScores.length; i++) {
-    content+=`<li class='score'><b>${normalScores[i].playerName} ${normalScores[i].highscore}<b></li>`
-  }
-  let contentSudden = "";
-  for (let i = 0; i < suddenScores.length; i++) {
-    contentSudden+=`<li class='score'><b>${suddenScores[i].playerName} ${suddenScores[i].highscore}<b></li>`
-  }
-  let titleSudden = "-SUDDEN DEATH-";
-  let title = "-NORMAL MODE-";
+  await fetchScoreBoard(req.route.path);
   res.send({response:contentSudden,titleSudden,content,title});
 }
 catch(e) {
@@ -189,7 +137,11 @@ app.post("/quizNormal", async (req: any, res: any) => {
   let myScore = req.body.score;
   let name = req.body.name.toUpperCase();
   let found = false;
-
+  
+  if(!(req.body.name.match(/^([A-z]{3})$/))){
+    res.redirect('/quiz');
+    return;
+  }
     let normalScores = await mongoose.connection.collection('HighscoresNormal').find({}).toArray();
 
     if(normalScores.length < 5){
@@ -216,13 +168,16 @@ app.post("/quizNormal", async (req: any, res: any) => {
   
 });
 
-app.post("/quizSudden", (req: any, res: any) => {
+app.post("/quizSudden", async(req: any, res: any) => {
   
   let myScore = req.body.score;
   let name = req.body.name.toUpperCase();
   let found = false;
-
-  const main = async() => {
+  
+  if(!(req.body.name.match(/^([A-z]{3})$/))){
+    res.redirect('/quiz');
+    return;
+  }
     let suddenScores = await mongoose.connection.collection('HighscoresSudden').find({}).toArray();
 
     if(suddenScores.length < 5){
@@ -247,15 +202,9 @@ app.post("/quizSudden", (req: any, res: any) => {
     }
       res.redirect('/quiz');
   }
-  try{
-    main();
-  }
-  catch(e){
-    console.log(e);
-  };
 
   
-});
+);
 
 app.post("/like", (req: any, res: any) => {
   const main = async() => {
@@ -340,9 +289,14 @@ app.post('/download', async (req:any, res:any) => {
 
   allLikes = await mongoose.connection.collection('Likes').find({}).toArray();
 
-  allLikes.forEach((like:any) => {
+  if(allLikes.length == 0){
+    content = "Wow such empty";
+  }
+  else{
+    allLikes.forEach((like:any) => {
       content += `${like.content} -  ${like.character}\n`;
-  });
+    });
+  }
 
   res.status(200)
       .attachment(`favorites.txt`)
