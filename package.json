@@ -1,7 +1,8 @@
 {
   "scripts": {
     "serve": "nodemon index.ts",
-    "start": "ts-node src/index.ts"
+    "start": "node build/index.js",
+    "build": "tsc"
   },
   "devDependencies": {
     "@types/node": "^17.0.35",
