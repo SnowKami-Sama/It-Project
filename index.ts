@@ -306,7 +306,7 @@ app.post('/download', async (req:any, res:any) => {
 try{
   db.connect()
   .then(() => {
-    app.set('port', (process.env.PORT || 5000));
+    app.set('port', (process.env.PORT || 3000));
     app.listen(app.get('port'), function() { });
     console.log("[server] http://localhost:" + app.get("port") + "/index");
   });
