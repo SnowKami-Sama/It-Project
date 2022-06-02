@@ -2,10 +2,14 @@
   "main": "index.js",
   "scripts": {
     "serve": "nodemon index.ts",
-    "build": "tsc",
-    "start": "node .",
-    "start:dev": "ts-node index.ts" 
+    "start": "node dist/index.js",
+    "postinstall": "tsc && mv -i -v assets/public dist/ && rm -v -rf src",
+    "watch-node": "nodemon dist/index.js",
+    "watch-ts": "tsc -w",
+    "deploy": "git add . && git commit -m Heroku && git push heroku main"
+    
   },
+  "engines": { "node": "14.17.6" },
   "devDependencies": {
     "@types/node": "^17.0.35",
     "nodemon": "^2.0.16",
