@@ -24,8 +24,12 @@
   "main": "index.ts",
   "scripts": {
     "serve": "nodemon index.ts",
-    "start": "node ./dist/index.js",
-    "build": "tsc"
+    "build": "tsc && npm run start",
+    "start": "node index.js",
+    "postinstall": "tsc && mv -i -v public dist/ && rm -v -rf src",
+    "watch-node": "nodemon dist/index.js",
+    "watch-ts": "tsc -w",
+    "deploy": "git add . && git commit -m Heroku && git push heroku master"
   },
   "keywords": [
     "lord",
