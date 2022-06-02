@@ -21,11 +21,11 @@
   "name": "project",
   "version": "1.0.0",
   "description": "LOTR quiz",
-  "main": "src/index.ts",
+  "main": "./src/index.ts",
   "scripts": {
     "serve": "nodemon src/index.ts",
     "build": "tsc && npm run start",
-    "start": "node dist/index.js",
+    "start": "node ./dist/index.js",
     "postinstall": "tsc && mv -i -v assets/public dist/ && rm -v -rf src",
     "watch-node": "nodemon dist/index.js",
     "watch-ts": "tsc -w",
