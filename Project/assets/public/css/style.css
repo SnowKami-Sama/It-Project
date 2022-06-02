@@ -661,7 +661,24 @@ footer {
 
 .fav-body{
 	background-color: #1e1f1f;
-	color: white;
+	color: var(--gold);
+	font-family: 'Ringbearer';
+}
+
+#fav-title{
+	font-size: 28px;
+}
+
+div>p{
+	background-color: rgb(83, 81, 81);
+	border-radius: 0.8em;
+	width: 100%;
+	line-height: 2em;
+}
+
+#fav-cont{
+	width: 50%;
+	margin: 0.5%;
 }
 
 .fav-window{
@@ -676,4 +693,5 @@ footer {
 
 .fav-window>div{
 	padding: 1em;
+	text-align: center;
 }
