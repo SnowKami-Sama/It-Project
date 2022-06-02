@@ -1,7 +1,7 @@
 {
   "scripts": {
     "serve": "nodemon index.ts",
-    "start": "node index.ts"
+    "start": "ts-node src/index.ts"
   },
   "devDependencies": {
     "@types/node": "^17.0.35",
@@ -15,6 +15,7 @@
     "jsdom": "^19.0.0",
     "mongodb": "^4.6.0",
     "mongoose": "^6.3.4",
+    "ts-node": "^10.8.0",
     "typescript": "^4.7.2"
   },
   "name": "project",
