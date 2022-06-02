@@ -21,12 +21,9 @@
   "description": "LOTR quiz",
   "main": "src/index.ts",
   "scripts": {
-    "build": "npm run build",
-    "serve": "nodemon src/index.ts",
-    "start": "node build/index.js",
-    "postinstall": "tsc && mv -i -v assets/public dist/ && rm -v -rf src",
-    "watch-node": "nodemon dist/index.js",
-    "watch-ts": "tsc -w",
+    "serve": "nodemon index.ts",
+    "start": "ts-node index.ts",
+    "postinstall": "tsc && mv -i -v ./assets/public dist/ && rm -v -rf src",
     "deploy": "git add . && git commit -m Heroku && git push heroku main"
     
   },
