@@ -1,11 +1,15 @@
 {
+  "main": "index.js",
   "scripts": {
     "serve": "nodemon index.ts",
-    "start": "node index.ts"
+    "build": "tsc",
+    "start": "node .",
+    "start:dev": "ts-node index.ts" 
   },
   "devDependencies": {
     "@types/node": "^17.0.35",
-    "nodemon": "^2.0.16"
+    "nodemon": "^2.0.16",
+    "typescript": "^4.7.2"
   },
   "dependencies": {
     "dotenv": "^16.0.1",
@@ -15,13 +19,11 @@
     "jsdom": "^19.0.0",
     "mongodb": "^4.6.0",
     "mongoose": "^6.3.4",
-    "ts-node": "^10.8.0",
-    "typescript": "^4.7.2"
+    "ts-node": "^10.8.0"
   },
   "name": "project",
   "version": "1.0.0",
   "description": "LOTR quiz",
-  "main": "index.ts",
   "keywords": [
     "lord",
     "of",
