@@ -7,7 +7,7 @@ const html = require("html-entities");
 const mongoose = require("mongoose");
 
 const ObjectId = require('mongodb').ObjectId;
-const db = require('./assets/public/js/db.js');
+const db = require('/assets/public/js/db.js');
 const HighscoreSudden : any = require('./models/highscoreSudden');
 const HighscoreNormal : any = require('./models/highscoreNormal');
 const Dislike : any = require('./models/dislikeSchema');
