@@ -21,7 +21,7 @@
   "name": "project",
   "version": "1.0.0",
   "description": "LOTR quiz",
-  "main": "./src/index.ts",
+  "main": "./dist/index.js",
   "scripts": {
     "serve": "nodemon src/index.ts",
     "build": "tsc && npm run start",
