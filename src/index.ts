@@ -5,13 +5,13 @@ const app = express();
 const ejs = require("ejs");
 const html = require("html-entities");
 const mongoose = require("mongoose");
-
+const path = require('path');
 const ObjectId = require('mongodb').ObjectId;
-const db = require('/assets/public/js/db.js');
-const HighscoreSudden : any = require('./models/highscoreSudden');
-const HighscoreNormal : any = require('./models/highscoreNormal');
-const Dislike : any = require('./models/dislikeSchema');
-const Like : any = require('./models/likeSchema');
+const db = require('../assets/public/js/db.js');
+const HighscoreSudden : any = require('../models/highscoreSudden');
+const HighscoreNormal : any = require('../models/highscoreNormal');
+const Dislike : any = require('../models/dislikeSchema');
+const Like : any = require('../models/likeSchema');
 let allDislikes : Array<string> = [];
 let allLikes : Array<string> = [];
 let content = "";
@@ -60,7 +60,7 @@ const fetchScoreBoard = async(path:string) => {
     }
 }
 
-app.use(express.static(__dirname + "/assets/public/"));
+app.use(express.static(path.join(__dirname, "../assets/public/")));
 
 app.set("view engine", "ejs"); // EJS als view engine
 app.set("port", 3000);
