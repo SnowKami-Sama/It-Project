@@ -22,7 +22,6 @@
   "main": "src/index.ts",
   "scripts": {
     "build": "npm run build",
-    "install": "npm install",
     "serve": "nodemon src/index.ts",
     "start": "node build/index.js",
     "postinstall": "tsc && mv -i -v assets/public dist/ && rm -v -rf src",
