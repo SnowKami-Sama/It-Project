@@ -25,7 +25,7 @@
   "scripts": {
     "serve": "nodemon index.ts",
     "build": "tsc && npm run start",
-    "start": "node index.js",
+    "start": "node dist/index.js",
     "postinstall": "tsc && mv -i -v public dist/ && rm -v -rf src",
     "watch-node": "nodemon dist/index.js",
     "watch-ts": "tsc -w",
