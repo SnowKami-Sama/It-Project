@@ -1,9 +1,7 @@
 {
   "scripts": {
     "serve": "nodemon index.ts",
-    "start": "node build/index.js",
-    "build": "tsc",
-    "postinstall": "npm run build"
+    "start": "node index.ts"
   },
   "devDependencies": {
     "@types/node": "^17.0.35",
@@ -16,7 +14,8 @@
     "html-entities": "^2.3.3",
     "jsdom": "^19.0.0",
     "mongodb": "^4.6.0",
-    "mongoose": "^6.3.4"
+    "mongoose": "^6.3.4",
+    "typescript": "^4.7.2"
   },
   "name": "project",
   "version": "1.0.0",
