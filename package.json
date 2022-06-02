@@ -22,8 +22,8 @@
   "main": "src/index.ts",
   "scripts": {
     "serve": "nodemon index.ts",
-    "start": "ts-node index.ts",
-    "postinstall": "tsc && mv -i -v ./assets/public dist/ && rm -v -rf src",
+    "start": "ts-node ./index.ts",
+    "postinstall": "tsc && mv -i -v assets/public dist/ && rm -v -rf src",
     "deploy": "git add . && git commit -m Heroku && git push heroku main"
     
   },
