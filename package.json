@@ -1,7 +1,7 @@
 {
   "scripts": {
     "serve": "nodemon index.ts",
-    "start": "node build/index.js",
+    "start": "node build/index.ts",
     "build": "tsc"
   },
   "devDependencies": {
