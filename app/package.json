@@ -23,8 +23,8 @@
   "description": "LOTR quiz",
   "main": "./dist/index.js",
   "scripts": {
-    "serve": "nodemon index.ts",
-    "build": "tsc && npm run start",
+    "serve": "nodemon .src/index.ts",
+    "build": "tsc",
     "start": "node ./dist/index.js",
     "postinstall": "tsc",
     "watch-node": "nodemon dist/index.js",

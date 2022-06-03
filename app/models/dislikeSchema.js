@@ -13,6 +13,10 @@ const dislikeSchema = new Schema({
     character: {
         type: "string",
         required: true
+    },
+    reason: {
+        type: "string",
+        required: true
     }
 });
 

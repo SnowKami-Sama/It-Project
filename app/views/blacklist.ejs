@@ -25,11 +25,11 @@
          <main>
              <section id="Homeflex">
                  <section id="Main_content">
-                    <section class="tableHolder">
+                    <section class="tableHolderfav">
                         <h3 class="title">Blacklist</h3>
                         <table id="blacklistTable">
                             <% for (var i = 0; i < allDislikes.length; i++) { %>
-                                <tr class="row">
+                                <tr>
                                     <td class="blacklistChearacter"><%= allDislikes[i].character %> :</td>
                                     <td class="blacklistQuote"><i>" <%= allDislikes[i].content %> "</i></td>
                                     <td class="blacklistForm">
@@ -37,6 +37,20 @@
                                             <input id="idToDelete<%= i %>" type="hidden" name="id" value="<%= allDislikes[i].id %>">
                                             <input id="deleteBlacklist<%= i %>" type="submit" value="X" class="blacklistDeleteButton">
                                         </form>
+                                    </td>
+                                    <td>
+                                        <button id="changeReasonId<%= i %>" class="reasonEdit" type="button" value="EDIT" class="blacklistDeleteButton"><p>EDIT</p></button>
+                                        <div id="myModal<%= i %>" class="modalEdit">
+                                            <div class="modal-content">
+                                                <span class="close">&times;</span>
+                                                <form id="changeReason<%= i %>" action="/changeReason" method="post">
+                                                    <input id="idToChange" type="hidden" name="id" value="<%= allDislikes[i].id %>">
+                                                    
+                                                    <textarea type="text" class="changeReasonText" id="changeReasonText<%= i %>" name="reason" placeholder="Reden"><%= allDislikes[i].reason %></textarea>
+                                                    <input class="changeReason" id="changeReasonButton<%= i %>" type="submit" name="submit" value="Submit">
+                                                </form>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             <% } %>

@@ -67,6 +67,10 @@ app.set("port", 3000);
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended:true}));
 
+app.get("/", (req: any, res: any) => {
+  res.redirect("/index");
+});
+
 app.get("/index", (req: any, res: any) => {
   res.render("landing", {});
 });
@@ -247,7 +251,7 @@ app.post("/dislike", (req: any, res: any) => {
     let quoteId = req.body.id;
     let content = req.body.content;
     let character = req.body.character;
-    
+    let reason = req.body.reason;
     let added = false;
 
     let fetchAllLikes = await mongoose.connection.collection('Dislikes').find({}).toArray();
@@ -257,7 +261,8 @@ app.post("/dislike", (req: any, res: any) => {
       const dislike = new Dislike({
         id: quoteId,
         content: content,
-        character: character
+        character: character,
+        reason: reason
       })
       dislike.save()
       .catch((err : any) => {
@@ -303,7 +308,15 @@ app.post('/download', async (req:any, res:any) => {
       .attachment(`favorites.txt`)
       .send(content);
 });
+app.post("/changeReason", async (req: any, res: any) => {
+  let reason = req.body.reason;
+  let id = req.body.id;
+  let log = await mongoose.connection.collection('Dislikes').updateOne({id: id}, {$set: {reason: reason}});
+  console.log(log);
 
+  allDislikes = await mongoose.connection.collection('Dislikes').find({}).toArray();
+  res.send({response:{allDislikes}});
+});
 try{
   db.connect()
   .then(() => {

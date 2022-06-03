@@ -378,36 +378,59 @@ $(buttonNormal).on('click',function(e) {
       }
     });
   })
-  $('#dislikeForm').on('submit',function(e) {
-    var data = {
-      id: $('#dislikeForm .quoteId').val(),
-      content: $('#dislikeForm .content').val(),
-      character: $('#dislikeForm .characterForm').val(),
+  const btn = document.getElementById("dislikeButton");
+  var modal = document.getElementById("myModal");
+  var span = document.getElementsByClassName("close")[0];
+    // When the user clicks the button, open the modal 
+    btn.onclick = function() {
+    modal.classList.add("displayModal");
     }
-    e.preventDefault();
-    $.ajax({
-      url: "/dislike",
-      type: 'POST',
-      data: JSON.stringify(data),
-      contentType: "application/json; charset=utf-8",
-      success: async function(response) {
-        if(response.response.added){
-            document.getElementById("userMessage").textContent = "Quote added";
-            setTimeout(function() {
-            document.getElementById("userMessage").textContent = "";
-            },2000);
-        }
-        else{
-            document.getElementById("userMessage").textContent = "Quote exists";
-            setTimeout(function() {
-            document.getElementById("userMessage").textContent = "";
-            },2000);
-        }
-        counter--;
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.classList.remove("displayModal");
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.classList.remove("displayModal");
+    }
+    }
+    $('#dislikeForm').on('submit',function(e) {
+      var data = {
+        id: $('#dislikeForm .quoteId').val(),
+        content: $('#dislikeForm .content').val(),
+        character: $('#dislikeForm .characterForm').val(),
+        reason: $('#dislikeForm').find("#reason").val(),
       }
-    });
-    
-})
+      e.preventDefault();
+      
+      $.ajax({
+        url: "/dislike",
+        type: 'POST',
+        data: JSON.stringify(data),
+        contentType: "application/json; charset=utf-8",
+        success: async function(response) {
+        modal.classList.remove("displayModal");
+          if(response.response.added){
+              
+              document.getElementById("userMessage").textContent = "Quote added";
+              setTimeout(function() {
+              document.getElementById("userMessage").textContent = "";
+              },2000);
+          }
+          else{
+              document.getElementById("userMessage").textContent = "Quote exists";
+              setTimeout(function() {
+              document.getElementById("userMessage").textContent = "";
+              },2000);
+          }
+          counter--;
+        }
+      });
+      
+  });
 $('#favoriteForm').on('submit',function(e) {
     var data = {
       id: $('#favoriteForm .quoteId').val(),
