@@ -294,8 +294,9 @@ const runQuiz = async (nocounter,wrong) => {
         else{
             document.getElementById('numberOfQuestion').textContent = `quote ${counter} of 10`;
             await quiz();
+            counter ++;
         }
-        counter ++;
+        
     }
     else if (nocounter == true){
         if(wrong){

@@ -95,6 +95,7 @@ app.route("/quiz")
 });
 app.get("/blacklist", async(req: any, res: any) => {
   await fetchScoreBoard(req.route.path);
+  allDislikes = await mongoose.connection.collection('Dislikes').find({}).toArray();
   res.render("blacklist", {content,contentSudden,titleSudden,title,allDislikes});
 })
 app.post("/blacklist", async(req: any, res: any) => {
@@ -309,13 +310,12 @@ app.post('/download', async (req:any, res:any) => {
       .send(content);
 });
 app.post("/changeReason", async (req: any, res: any) => {
-  let reason = req.body.reason;
   let id = req.body.id;
-  let log = await mongoose.connection.collection('Dislikes').updateOne({id: id}, {$set: {reason: reason}});
-  console.log(log);
+  let textcontent = req.body.textcontent;
+  await mongoose.connection.collection('Dislikes').updateOne({id:id},{$set: {reason: textcontent}});
 
   allDislikes = await mongoose.connection.collection('Dislikes').find({}).toArray();
-  res.send({response:{allDislikes}});
+  res.redirect("/blacklist");
 });
 try{
   db.connect()

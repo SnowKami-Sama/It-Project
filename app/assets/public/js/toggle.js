@@ -1,4 +1,22 @@
 // AJAX CALLS
+$('[id^=changeReason]').each(function() {
+  $('[id^=changeReason] [id^=changeReasonButton]').on("submit", function(e){
+    e.preventDefault();
+    var data = {
+      id: $(this).find('[id^=idToChange]').val(),
+      reason: $(this).find('[id^=textcontent]').val(),
+    }
+    $.ajax({
+      url: '/changeReason',
+      type: 'POST',
+      data: JSON.stringify(data),
+      contentType: "application/json; charset=utf-8",
+      success: function(response) {
+      }
+    });
+  });
+});
+
     const edits = document.querySelectorAll(".reasonEdit");
     var modals = document.querySelectorAll(".modalEdit");
     var spans = document.querySelectorAll(".close");
@@ -7,19 +25,22 @@
         element.onclick = function() {
           modals.forEach(element => {
             element.classList.remove("displayModal");
-          })
+          });
           modals[i].classList.add("displayModal");
+          modals[i].classList.remove("hideModal");
         }
     
         // When the user clicks on <span> (x), close the modal
         spans[i].onclick = function() {
-            modals[i].classList.remove("displayModal");
+            modals[i].classList.add("hideModal");
         }
     
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function(event) {
         if (event.target == modals[i]) {
-            modals[i].classList.remove("displayModal");
+          modals.forEach(element => {
+            element.classList.remove("displayModal");
+          });
         }
         }
     }
@@ -57,23 +78,7 @@
       });
       
   });
-$('[id^=changeReason]').on('submit',function(e) {
-  e.preventDefault();
-  var $this = $(this);
-  var data = {
-    id: $this.find('[id^=idToChange]').val(),
-    reason: $this.find('[id^=changeReasonText]').textContent,
-  }
-  $.ajax({
-    url: '/changeReason',
-    type: 'POST',
-    data: JSON.stringify(data),
-    contentType: "application/json; charset=utf-8",
-    success: function(response) {
-        window.location.reload();
-    }
-  });
-});
+
 $('[id^=changeReasonId]').on('click',function() {
   var $this = $(this);
   const changeReasonForm = $this.siblings('[id^=changeReasonText]');
