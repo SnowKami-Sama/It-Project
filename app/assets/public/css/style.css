@@ -254,6 +254,7 @@ nav ul li a {
 	min-height: 400px;
 	height: calc(100vh - 157.5px);
 	overflow-y: auto;
+
 }
 .tableHolderfav{
 	color: #fff;
@@ -263,6 +264,7 @@ nav ul li a {
 	height: calc(100vh - 157.5px);
 	overflow-y: auto;
 	position: relative;
+
 }
 table th{
 	text-align: center;
