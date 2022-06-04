@@ -27,6 +27,8 @@ let run = true;
 let start = document.getElementById('startHolder');
 let startQuiz = document.getElementById('startQuiz');
 let startQuizSudden = document.getElementById('startQuizSudden');
+let retryQuiz = document.getElementById('retryQuiz');
+let retryQuizSudden = document.getElementById('retryQuizSudden');
 let buttonsCharacter = document.querySelectorAll(".character");
 let buttonsMovie = document.querySelectorAll(".movie");
 let allButtons = document.querySelectorAll(".button");
@@ -37,7 +39,7 @@ let quotes = "";
 let tempQuoteId = ""
 let counter = 1;
 let nocounter = false;
-
+let reset = false;
 let suddenValue = document.querySelector("#lastInputSudden").value;
 let normalValue = document.querySelector("#lastInput").value;
 
@@ -279,8 +281,12 @@ const shuffle = (array) => {
 
 //function to run the quiz
 
-const runQuiz = async (nocounter,wrong) => {
-    
+const runQuiz = async (nocounter,wrong,reset) => {
+    if(reset){
+        counter = 1;
+        localStorage.setItem('score',"0");
+        addScore();
+    }
     if(nocounter == false){
         if(counter == 11){
             document.getElementById('quizHolder').style.display = 'none';
@@ -317,25 +323,45 @@ const runQuiz = async (nocounter,wrong) => {
     }
 }
 
-// Start quiz button
+// Start/retry quiz button
 
 startQuiz.addEventListener('click', () => {
     start.style.display = 'none';
     nocounter = false;
     wrong = false;
-    runQuiz(nocounter,wrong);
+    reset = false;
+    runQuiz(nocounter,wrong,reset);
     document.getElementById('quizHolder').style.display = 'flex';
-})
+});
 
 startQuizSudden.addEventListener('click', () => {
     start.style.display = 'none';
     nocounter = true;
     wrong = false;
-    runQuiz(nocounter,wrong);
+    reset = false;
+    runQuiz(nocounter,wrong,reset);
     document.getElementById('quizHolder').style.display = 'flex';
     
-})
+});
 
+retryQuiz.addEventListener('click', () => {
+    document.getElementById('finished').style.display = 'none';
+    nocounter = false;
+    wrong = false;
+    reset = true;
+    runQuiz(nocounter,wrong,reset);
+    document.getElementById('quizHolder').style.display = 'flex';
+});
+
+retryQuizSudden.addEventListener('click', () => {
+    document.getElementById('finishedSudden').style.display = 'none';
+    nocounter = true;
+    wrong = false;
+    reset = true;
+    runQuiz(nocounter,wrong,reset);
+    document.getElementById('quizHolder').style.display = 'flex';
+    
+});
 // AJAX CALLS
 $('#startQuiz').on('click', () => {
     $.ajax({

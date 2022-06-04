@@ -253,7 +253,7 @@ nav ul li a {
 	width: 100%;
 	padding: 0 20px 0 0;
 	min-height: 400px;
-	height: calc(100vh - 157.5px);
+	height: calc(100vh - 158px);
 	overflow-y: auto;
 
 }
@@ -262,7 +262,7 @@ nav ul li a {
 	width: 100%;
 	padding: 0 20px 0 0;
 	min-height: 400px;
-	height: calc(100vh - 157.5px);
+	height: calc(100vh - 158px);
 	overflow-y: auto;
 	position: relative;
 
@@ -337,20 +337,17 @@ table{
 	position: absolute;
 	top: 30px;
 	right: 10px;
+	text-align: center;
 }
 #formNormalInput{
 	display: none;
 }
 #downloadForm input[type="submit"]{
-	font-size: 30px;
-	width: auto;
-	height: 30px;
+	font-size: 21px;
 	border-radius: 50%;
 	background-color: #000;
 	color: #fffc04;
 	cursor: pointer;
-	line-height: 20px;
-	text-align: center;
 }
 #downloadForm input[type="submit"]:hover{
 	color: green;
@@ -498,8 +495,9 @@ main{
 	display: block;
 	min-width: 200px;
 	margin-top: 15px;
-	font-size:calc(12px + .3vw);
+	font-size:calc(9px + .3vw);
 	padding: 5px;
+	border-radius: 20px;
 }
 .buttons .button:hover{
 	color: #fff;
@@ -508,7 +506,6 @@ main{
 }
 .currentScore{
 	position: absolute;
-	top: 50 - 20px;
 	right: 0;
 	color: #fff;
 	width: 100px;
@@ -524,6 +521,8 @@ main{
 	display: flex;
 	justify-content: center;
 	min-height: 400px;
+	padding-top: 20px;
+	padding-bottom: 10px;
 }
 
 #Scores {
@@ -542,7 +541,7 @@ main{
 
 #Homeflex {
 	background-color: var(--bg);
-	min-height: calc(100vh - 156.5px);
+	min-height: calc(100vh - 157px);
 }
 
 #ScoreHeading {
@@ -639,6 +638,10 @@ main{
 	color: #dba800;
 	text-align: center;
 }
+#extra{
+	font-size: 12px;
+	text-align: center;
+}
 #startHolder{
 	display: flex;
 	justify-content: center;
@@ -668,6 +671,12 @@ main{
 #formNormalInput,#formSuddenInput{
 	display:none;
 }
+#formNormalInput input[type="submit"],#formSuddenInput input[type="submit"]{
+	display: block;
+	padding: 5px;
+	margin: 10px 0 0 auto;
+}
+
 @keyframes fadeIn{
 	0%{
 		opacity: 0;
@@ -692,7 +701,13 @@ main{
 	}
 	
 }
-#startQuiz, #startQuizSudden{
+#retryQuiz,#retryQuizSudden{
+	margin: 20px auto 0 auto;
+	margin-top: 0px;
+  	display: block;
+}
+
+#startQuiz, #startQuizSudden,#retryQuiz,#retryQuizSudden{
 	background-color: green;
 	border: 2px solid #dba800;
 	padding: 5px;
@@ -703,7 +718,7 @@ main{
 #startQuiz{
 	margin-right: 10px;
 }
-#startQuiz:hover,#startQuizSudden:hover{
+#startQuiz:hover,#startQuizSudden:hover,#retryQuiz:hover,#retryQuizSudden:hover{
 	background-color: rgb(1, 147, 1);
 }
 .title{
@@ -770,7 +785,8 @@ main{
 	}
 	#Scoreboard {
 		width: 30%;
-		margin-top: 30px;
+		padding-top: 10px;
+		
 	}
 	#Homeflex {
 		display: flex;
@@ -808,7 +824,13 @@ main{
 	#userMessage{
 		font-size: 14px;
 	}
-	
+	#downloadForm input[type="submit"]{
+		font-size: 30px;
+		width: 45px;
+	}
+	#extra{
+		font-size: 18px;
+	}
 }
 /*
 
