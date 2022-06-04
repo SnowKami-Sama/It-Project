@@ -303,7 +303,7 @@ table{
 .row{
 	position: relative;
 }
-.blacklistChearacter,.favoriteCharacter{
+.blacklistCharacter,.favoriteCharacter{
 	font-size: 12px;
 	display:block;
 	width: 100%;
