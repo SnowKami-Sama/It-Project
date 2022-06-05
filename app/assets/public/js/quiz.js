@@ -261,7 +261,7 @@ const resetButtons=()=>{
     let alltmpButtons = document.querySelectorAll("button");
     alltmpButtons.forEach(button =>{
         button.classList.remove('activeButton');
-    })
+    });
 }
 
 // function to shuffle the array

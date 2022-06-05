@@ -39,11 +39,12 @@
                                         <button id="changeReasonId<%= i %>" class="reasonEdit" type="button" value="EDIT" class="blacklistDeleteButton"><p>EDIT</p></button>
                                         <div id="myModal<%= i %>" class="modalEdit hideModal">
                                             <div class="modal-content">
+                                                <h3 class="modalTitle">Change reason</h3>
                                                 <span class="close">&times;</span>
                                                 <form id="changeReason<%= i %>" action="/changeReason" method="post">
                                                     <input id="idToChange<%= i %>" type="hidden" name="id" value="<%= allDislikes[i].id %>">
                                                     <textarea name="textcontent" id="textcontent<%= i %>" class="changeReasonText" cols="30" rows="10" placeholder="Reden" required><%= allDislikes[i].reason %></textarea>
-                                                    <input id="changeReasonButton<%= i %>" type="submit" name="submit" value="Submit">
+                                                    <input class="modalSubmit" id="changeReasonButton<%= i %>" type="submit" name="submit" value="Change">
                                                 </form>
                                             </div>
                                         </div>

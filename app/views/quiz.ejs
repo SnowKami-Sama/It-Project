@@ -39,21 +39,24 @@
                                     </form>
                                     <span id="extra">0</span>
                                     <div id="dislikeButton" value=""></div>
-                                    <div id="myModal" class="modal">
-                                        <div class="modal-content">
-                                            <span class="close">&times;</span>
-                                            <form id="dislikeForm" action="/dislike" method="post">
-                                                <input class="quoteId" name="id" type="hidden" value="">
-                                                <input class="content" name="content" type="hidden" value="">
-                                                <input class="characterForm" name="character" type="hidden" value="">
-                                                <textarea type="text" class="reason" id="reason" name="reason" placeholder="Reden" required></textarea>
-                                                <input id="reasonButton" type="submit" name="submit" value="Submit">
-                                            </form>
-                                        </div>
-                                    </div>
+                                    
                                 </section>
+                                
                                 <p id="userMessage"></p>
                             </section>
+                            <div id="myModal" class="modal">
+                                <div class="modal-content editForm">
+                                    <h3 class="modalTitle">Add reason</h3>
+                                    <span class="close">&times;</span>
+                                    <form id="dislikeForm" action="/dislike" method="post">
+                                        <input class="quoteId" name="id" type="hidden" value="">
+                                        <input class="content" name="content" type="hidden" value="">
+                                        <input class="characterForm" name="character" type="hidden" value="">
+                                        <textarea type="text" class="reason" id="reason" name="reason" placeholder="Reden" required></textarea>
+                                        <input class="modalSubmit" id="reasonButton" type="submit" name="submit" value="Add">
+                                    </form>
+                                </div>
+                            </div>
                             <h3 class="title">Choose a character:</h3>
                             <section class="buttons">
                                 <button id="button1" class="button character">answer</button>
